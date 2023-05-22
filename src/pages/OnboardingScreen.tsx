@@ -1,11 +1,11 @@
 import Screen from "@layouts/Screen";
 
-const HomeScreen: React.FC = () => {
+const OnboardingScreen: React.FC = () => {
   return (
-    <Screen title="Home">
+    <Screen title="Onboarding">
       <div className="p-4 font-bold">Hello from Tailwind!</div>
     </Screen>
   );
 };
 
-export default HomeScreen;
+export default OnboardingScreen;
