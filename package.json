@@ -1,5 +1,5 @@
 {
-  "name": "starter-ionic-capacitor-tailwind-ts",
+  "name": "others-pe",
   "version": "0.0.1",
   "author": "utsavdotpro",
   "private": true,
@@ -81,5 +81,5 @@
     "vite-plugin-svgr": "^3.2.0",
     "vite-tsconfig-paths": "^4.2.0"
   },
-  "description": "Starter template for Ionic Capacitor app with TailwindCSS in TypeScript"
+  "description": "Stuck? Let others pay!"
 }
