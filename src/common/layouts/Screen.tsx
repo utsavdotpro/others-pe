@@ -1,13 +1,23 @@
 import { Component } from "@appTypes/.";
+import Toolbar from "@components/Toolbar";
 import { IonPage, IonContent } from "@ionic/react";
 import cx from "clsx";
 
 type Props = {
   title: string;
+  subtitle?: string;
+  toolbar?: boolean;
   safeArea?: boolean;
 };
 
-const Screen: Component<Props> = ({ title, safeArea, children, className }) => {
+const Screen: Component<Props> = ({
+  title,
+  subtitle,
+  toolbar,
+  safeArea = true,
+  children,
+  className,
+}) => {
   return (
     <IonPage className={cx(safeArea && "pt-safe")} title={title}>
       <IonContent
@@ -17,6 +27,8 @@ const Screen: Component<Props> = ({ title, safeArea, children, className }) => {
           className
         )}
       >
+        {toolbar && <Toolbar className="mb-6 mt-9" {...{ title, subtitle }} />}
+
         {children}
       </IonContent>
     </IonPage>

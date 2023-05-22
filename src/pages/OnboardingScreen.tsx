@@ -5,7 +5,7 @@ import Screen from "@layouts/Screen";
 
 const OnboardingScreen: React.FC = () => {
   return (
-    <Screen title="Onboarding">
+    <Screen title="Onboarding" safeArea={false}>
       <Container className="flex flex-col justify-end h-full text-center bg-primary-500">
         <Text className="text-3xl" bold>
           Scan. Request. <br />
