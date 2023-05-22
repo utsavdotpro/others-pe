@@ -1,7 +1,5 @@
-[<img src="https://ik.imagekit.io/iutsav/fork_l0RKONb5l.svg" height="30" />](https://githubbox.com/utsavdotpro/starter-ionic-capacitor-tailwind-ts)
-
-# Ionic + Capacitor with Tailwind in TypeScript
-A starter template for Ionic + Capacitor with Tailwind in TypeScript with an opinionated [modular project structure](#project-structure).
+# OthersPe
+WIP
 
 ### Technologies
 
@@ -11,26 +9,6 @@ A starter template for Ionic + Capacitor with Tailwind in TypeScript with an opi
 [![](https://img.shields.io/badge/Tailwind-v3-38bdf8?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com)
 [![](https://img.shields.io/badge/TypeScript-v4-3178c6?style=for-the-badge&logo=typescript)](https://typescriptlang.org)
 [![](https://img.shields.io/badge/Vite-v4-646cff?style=for-the-badge&logo=vite)](https://vitejs.dev/)
-
----
-
-## How to Reuse Locally?
-
-Use `degit` to download the repository locally.
-
-> **❓ What is [degit](https://github.com/Rich-Harris/degit)?**  
-> degit downloads a copy of git repository with downloading its entire git history.
-
-Install degit globally.
-
-```bash
-npm install -g degit
-```
-
-Download the latest version
-```bash
-degit utsavdotpro/starter-ionic-capacitor-tailwind-ts
-```
 
 ---
 
