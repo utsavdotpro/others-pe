@@ -1,9 +1,12 @@
 import Button from "@elements/Button";
 import Text from "@elements/Text";
+import useRouter from "@hooks/use-router";
 import Container from "@layouts/Container";
 import Screen from "@layouts/Screen";
 
 const OnboardingScreen: React.FC = () => {
+  const { push } = useRouter();
+
   return (
     <Screen title="Onboarding" safeArea={false}>
       <Container className="flex flex-col justify-end h-full text-center bg-primary-500">
@@ -19,7 +22,10 @@ const OnboardingScreen: React.FC = () => {
           friends & family
         </Text>
 
-        <Button className="mt-10 mb-8">Get Started</Button>
+        {/* TODO: use url path from constant */}
+        <Button onClick={() => push("/add-upi")} className="mt-10 mb-8">
+          Get Started
+        </Button>
       </Container>
     </Screen>
   );

@@ -16,7 +16,7 @@ const Toolbar: Component<Props> = ({ title, subtitle, className }) => {
     <Container className={cx("flex items-center", className)}>
       {canGoBack() && (
         <ArrowLeftIcon
-          className="w-4 h-4 mr-4 font-bold"
+          className="w-4 h-4 mr-4 font-bold cursor-pointer"
           onClick={() => goBack()}
         />
       )}
