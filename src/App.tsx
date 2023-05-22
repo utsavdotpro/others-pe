@@ -1,6 +1,7 @@
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import Home from "@pages/Home";
+import HomeScreen from "@pages/HomeScreen";
+import OnboardingScreen from "@pages/OnboardingScreen";
 import { Redirect, Route } from "react-router-dom";
 
 import "./App.css";
@@ -13,11 +14,14 @@ const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
+        <Route exact path="/onboarding">
+          <OnboardingScreen />
+        </Route>
         <Route exact path="/home">
-          <Home />
+          <HomeScreen />
         </Route>
         <Route exact path="/">
-          <Redirect to="/home" />
+          <Redirect to="/onboarding" />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>
