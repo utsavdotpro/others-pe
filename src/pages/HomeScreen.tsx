@@ -2,9 +2,11 @@ import Screen from "@layouts/Screen";
 
 const HomeScreen: React.FC = () => {
   return (
-    <Screen title="Home">
-      <div className="p-4 font-bold">Hello from Tailwind!</div>
-    </Screen>
+    <Screen
+      title="Your UPI"
+      subtitle="Works with all the UPI IDs"
+      toolbar
+    ></Screen>
   );
 };
 
