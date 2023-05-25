@@ -1,9 +1,10 @@
-import { UserPlusIcon } from "@heroicons/react/24/outline";
+import { UserPlusIcon, QrCodeIcon } from "@heroicons/react/24/outline";
 
 import Header from "@components/Header";
 import Button from "@elements/Button";
 import Screen from "@layouts/Screen";
 import Section from "@layouts/Section";
+import Container from "@layouts/Container";
 
 const mockList = [
   {
@@ -13,7 +14,7 @@ const mockList = [
 
 const HomeScreen: React.FC = () => {
   return (
-    <Screen title="Home">
+    <Screen title="Home" className="relative">
       <Header title="Welcome to OthersPe!" subtitle="Stuck? Let others pay!" />
 
       <Section
@@ -44,6 +45,16 @@ const HomeScreen: React.FC = () => {
           unlike your incognito history :)
         </Section.EmptyText>
       </Section>
+
+      <Container className="absolute bottom-0 mb-8">
+        <Button
+          Icon={QrCodeIcon}
+          className="w-full"
+          iconClassName="text-primary-500"
+        >
+          Scan & Pay
+        </Button>
+      </Container>
     </Screen>
   );
 };
