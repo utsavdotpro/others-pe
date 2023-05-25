@@ -15,10 +15,29 @@ const HomeScreen: React.FC = () => {
     <Screen title="Home">
       <Header title="Welcome to OthersPe!" subtitle="Stuck? Let others pay!" />
 
-      <Section title="People" action={{ text: "See All", fn: () => {} }}>
-        {mockList.map((item) => (
+      <Section
+        title="People"
+        className="mb-8"
+        action={{ text: "See All", fn: () => {} }}
+      >
+        <Section.EmptyText className="mt-14">
+          *Cricket noises*
+          <br />
+          <br />
+          Need help making some friends?
+        </Section.EmptyText>
+
+        {/* {mockList.map((item) => (
           <UPIItem {...item} key={item.upiId} />
-        ))}
+        ))} */}
+      </Section>
+
+      <Section title="History" action={{ text: "See All", fn: () => {} }}>
+        <Section.EmptyText className="mt-14">
+          Your recent transaction will show up here,
+          <br />
+          unlike your incognito history :)
+        </Section.EmptyText>
       </Section>
     </Screen>
   );

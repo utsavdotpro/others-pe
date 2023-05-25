@@ -1,7 +1,7 @@
-import React from "react";
 import { Component } from "@appTypes/.";
 import Text from "@elements/Text";
 import Container from "@layouts/Container";
+import cx from "clsx";
 
 type Props = {
   title: string;
@@ -11,9 +11,18 @@ type Props = {
   };
 };
 
-const Section: Component<Props> = ({ title, action, children }) => {
+type SubComponent = {
+  EmptyText: Component;
+};
+
+const Section: Component<Props> & SubComponent = ({
+  title,
+  action,
+  children,
+  className,
+}) => {
   return (
-    <Container>
+    <Container className={className}>
       <div className="flex items-center justify-between mb-1.5">
         <Text className="text-xl font-medium">{title}</Text>
 
@@ -26,6 +35,14 @@ const Section: Component<Props> = ({ title, action, children }) => {
 
       {children}
     </Container>
+  );
+};
+
+Section.EmptyText = ({ className, children }) => {
+  return (
+    <div className={cx("flex items-center justify-center", className)}>
+      <Text className="text-xs text-center">{children}</Text>
+    </div>
   );
 };
 
