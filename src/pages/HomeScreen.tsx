@@ -1,3 +1,5 @@
+import { UserPlusIcon } from "@heroicons/react/24/outline";
+
 import Header from "@components/Header";
 import Button from "@elements/Button";
 import Screen from "@layouts/Screen";
@@ -16,7 +18,7 @@ const HomeScreen: React.FC = () => {
 
       <Section
         title="People"
-        className="mb-8 text-center"
+        className="mb-8"
         action={{ text: "See All", fn: () => {} }}
       >
         <Section.EmptyText className="mb-10 mt-14">
@@ -26,7 +28,9 @@ const HomeScreen: React.FC = () => {
           Need help making some friends?
         </Section.EmptyText>
 
-        <Button.Primary className="!py-3 !px-7">Add a UPI ID</Button.Primary>
+        <Button.Primary Icon={UserPlusIcon} className="!py-3 !px-7 mx-auto">
+          Add a UPI ID
+        </Button.Primary>
 
         {/* {mockList.map((item) => (
           <UPIItem {...item} key={item.upiId} />
