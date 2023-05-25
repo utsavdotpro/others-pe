@@ -1,7 +1,8 @@
 import { Component } from "@appTypes/.";
 import cx from "clsx";
+import { PropsWithoutRef } from "react";
 
-type Props = {
+interface Props extends PropsWithoutRef<JSX.IntrinsicElements["span"]> {
   block?: boolean;
   bold?: boolean;
 };
