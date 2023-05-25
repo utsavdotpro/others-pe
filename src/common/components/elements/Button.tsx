@@ -4,7 +4,11 @@ import { PropsWithoutRef } from "react";
 
 interface Props extends PropsWithoutRef<JSX.IntrinsicElements["button"]> {}
 
-const Button: Component<Props> = ({
+type Variant = {
+  Primary: Component<Props>;
+};
+
+const Button: Component<Props> & Variant = ({
   disabled,
   className,
   children,
@@ -13,7 +17,7 @@ const Button: Component<Props> = ({
   return (
     <button
       className={cx(
-        "text-white bg-black rounded-2xl p-4",
+        "text-white bg-black rounded-2xl p-4 font-medium",
         disabled && "bg-disabled-500",
         className
       )}
@@ -24,5 +28,12 @@ const Button: Component<Props> = ({
     </button>
   );
 };
+
+Button.Primary = ({ className, ...rest }) => (
+  <Button
+    className={cx("bg-primary-500 !text-black !rounded-full", className)}
+    {...rest}
+  />
+);
 
 export default Button;

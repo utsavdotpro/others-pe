@@ -1,6 +1,5 @@
 import Header from "@components/Header";
-import UPIItem from "@components/UPIItem";
-import Container from "@layouts/Container";
+import Button from "@elements/Button";
 import Screen from "@layouts/Screen";
 import Section from "@layouts/Section";
 
@@ -17,15 +16,17 @@ const HomeScreen: React.FC = () => {
 
       <Section
         title="People"
-        className="mb-8"
+        className="mb-8 text-center"
         action={{ text: "See All", fn: () => {} }}
       >
-        <Section.EmptyText className="mt-14">
+        <Section.EmptyText className="mb-10 mt-14">
           *Cricket noises*
           <br />
           <br />
           Need help making some friends?
         </Section.EmptyText>
+
+        <Button.Primary className="!py-3 !px-7">Add a UPI ID</Button.Primary>
 
         {/* {mockList.map((item) => (
           <UPIItem {...item} key={item.upiId} />
