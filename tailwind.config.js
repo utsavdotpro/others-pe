@@ -20,6 +20,9 @@ module.exports = {
           500: "#959FA0",
         },
       },
+      fontSize: {
+        xxs: ["8px", "12px"],
+      },
     },
   },
   plugins: [require("tailwindcss-safe-area")],

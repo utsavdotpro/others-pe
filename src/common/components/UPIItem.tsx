@@ -15,6 +15,7 @@ const UPIItem: Component<Props> = ({ upiId }) => {
       RightContent={
         <TrashIcon className="w-4 h-4 text-gray-500 cursor-pointer" />
       }
+      className="font-medium"
     >
       <Text className="text-sm">{upiId}</Text>
     </ListItem>

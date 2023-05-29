@@ -1,14 +1,20 @@
 import { Component } from "@appTypes/.";
+import cx from "clsx";
 
 type Props = {
   Icon?: Component;
   RightContent?: JSX.Element;
 };
 
-const ListItem: Component<Props> = ({ Icon, children, RightContent }) => {
+const ListItem: Component<Props> = ({
+  Icon,
+  children,
+  RightContent,
+  className,
+}) => {
   return (
     <div
-      className="flex items-center p-4 rounded-2xl"
+      className={cx("flex items-center p-4 rounded-2xl", className)}
       style={{
         boxShadow: "0px 0px 2px 1px rgba(0, 0, 0, 0.05)",
       }}

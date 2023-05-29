@@ -7,11 +7,18 @@ import Section from "@layouts/Section";
 import Container from "@layouts/Container";
 import { Component } from "@appTypes/.";
 import UPIItem from "@components/UPIItem";
+import HistoryItem from "@components/HistoryItem";
 
-const mockList = [
+const mockUPIList = [
   { upiId: "sannan@ybl" },
   { upiId: "priya@ybl" },
   { upiId: "raj@ybl" },
+];
+
+const mockHistoryList = [
+  { label: "Sannan", time: "Today, 11:30am", amount: 500000 },
+  { label: "Priya", time: "Yesterday, 11:30pm", amount: 500 },
+  { label: "Raj", time: "March 20, 10:25pm", amount: 50000 },
 ];
 
 const EmptyUPIList: Component = () => (
@@ -39,21 +46,31 @@ const HomeScreen: React.FC = () => {
         className="mb-8"
         action={{ text: "See All", fn: () => {} }}
       >
-        {!mockList.length && <EmptyUPIList />}
-
-        <div className="grid grid-cols-1 gap-2">
-          {mockList.map((item) => (
-            <UPIItem {...item} key={item.upiId} />
-          ))}
-        </div>
+        {!mockUPIList.length ? (
+          <EmptyUPIList />
+        ) : (
+          <div className="grid grid-cols-1 gap-2">
+            {mockUPIList.map((item) => (
+              <UPIItem {...item} key={item.upiId} />
+            ))}
+          </div>
+        )}
       </Section>
 
       <Section title="History" action={{ text: "See All", fn: () => {} }}>
-        <Section.EmptyText className="mt-14">
-          Your recent transaction will show up here,
-          <br />
-          unlike your incognito history :)
-        </Section.EmptyText>
+        {!mockHistoryList.length ? (
+          <Section.EmptyText className="mt-14">
+            Your recent transaction will show up here,
+            <br />
+            unlike your incognito history :)
+          </Section.EmptyText>
+        ) : (
+          <div className="grid grid-cols-1 gap-2">
+            {mockHistoryList.map((item) => (
+              <HistoryItem {...item} key={item.label} />
+            ))}
+          </div>
+        )}
       </Section>
 
       <Container className="absolute bottom-0 mb-8">
