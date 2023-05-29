@@ -27,7 +27,7 @@ const Section: Component<Props> & SubComponent = ({
         <Text className="text-xl font-medium">{title}</Text>
 
         {action && (
-          <Text className="text-[#959FA0] cursor-pointer" onClick={action.fn}>
+          <Text className="text-gray-500 cursor-pointer" onClick={action.fn}>
             {action.text}
           </Text>
         )}

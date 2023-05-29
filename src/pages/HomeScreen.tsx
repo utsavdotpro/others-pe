@@ -9,9 +9,9 @@ import { Component } from "@appTypes/.";
 import UPIItem from "@components/UPIItem";
 
 const mockList = [
-  {
-    upiId: "sannan@ybl",
-  },
+  { upiId: "sannan@ybl" },
+  { upiId: "priya@ybl" },
+  { upiId: "raj@ybl" },
 ];
 
 const EmptyUPIList: Component = () => (
@@ -41,9 +41,11 @@ const HomeScreen: React.FC = () => {
       >
         {!mockList.length && <EmptyUPIList />}
 
-        {mockList.map((item) => (
-          <UPIItem {...item} key={item.upiId} />
-        ))}
+        <div className="grid grid-cols-1 gap-2">
+          {mockList.map((item) => (
+            <UPIItem {...item} key={item.upiId} />
+          ))}
+        </div>
       </Section>
 
       <Section title="History" action={{ text: "See All", fn: () => {} }}>

@@ -16,6 +16,9 @@ module.exports = {
         disabled: {
           500: "#848484",
         },
+        gray: {
+          500: "#959FA0",
+        },
       },
     },
   },

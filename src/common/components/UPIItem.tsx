@@ -1,5 +1,8 @@
 import { Component } from "@appTypes/.";
 import Text from "@elements/Text";
+import { TrashIcon } from "@heroicons/react/24/outline";
+import { QrCodeIcon } from "@heroicons/react/24/solid";
+import ListItem from "@layouts/ListItem";
 
 type Props = {
   upiId: string;
@@ -7,14 +10,14 @@ type Props = {
 
 const UPIItem: Component<Props> = ({ upiId }) => {
   return (
-    <div
-      className="p-5 pl-4 rounded-2xl"
-      style={{
-        boxShadow: "0px 0px 3px 2px rgba(0, 0, 0, 0.05)",
-      }}
+    <ListItem
+      Icon={QrCodeIcon}
+      RightContent={
+        <TrashIcon className="w-4 h-4 text-gray-500 cursor-pointer" />
+      }
     >
-      <Text className="mx-2.5 text-sm">UPIItem</Text>
-    </div>
+      <Text className="text-sm">{upiId}</Text>
+    </ListItem>
   );
 };
 
