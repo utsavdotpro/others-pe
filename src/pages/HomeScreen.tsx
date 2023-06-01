@@ -15,15 +15,11 @@ const mockUPIList = [
   { upiId: "sannan@ybl" },
   { upiId: "priya@ybl" },
   { upiId: "raj@ybl" },
-  { upiId: "raj@ybl" },
-  { upiId: "raj@ybl" },
 ];
 
 const mockHistoryList = [
   { label: "Sannan", time: "Today, 11:30am", amount: 500000 },
   { label: "Priya", time: "Yesterday, 11:30pm", amount: 500 },
-  { label: "Raj", time: "March 20, 10:25pm", amount: 50000 },
-  { label: "Raj", time: "March 20, 10:25pm", amount: 50000 },
   { label: "Raj", time: "March 20, 10:25pm", amount: 50000 },
 ];
 
