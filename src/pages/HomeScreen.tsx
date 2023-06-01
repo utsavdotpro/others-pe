@@ -1,23 +1,29 @@
 import { UserPlusIcon, QrCodeIcon } from "@heroicons/react/24/outline";
+import cx from "clsx";
 
 import Header from "@components/Header";
 import Button from "@elements/Button";
 import Screen from "@layouts/Screen";
 import Section from "@layouts/Section";
 import Container from "@layouts/Container";
-import { Component } from "@appTypes/.";
+import type { Component } from "@appTypes/.";
 import UPIItem from "@components/UPIItem";
 import HistoryItem from "@components/HistoryItem";
+import { Platform } from "@lib/platform";
 
 const mockUPIList = [
   { upiId: "sannan@ybl" },
   { upiId: "priya@ybl" },
+  { upiId: "raj@ybl" },
+  { upiId: "raj@ybl" },
   { upiId: "raj@ybl" },
 ];
 
 const mockHistoryList = [
   { label: "Sannan", time: "Today, 11:30am", amount: 500000 },
   { label: "Priya", time: "Yesterday, 11:30pm", amount: 500 },
+  { label: "Raj", time: "March 20, 10:25pm", amount: 50000 },
+  { label: "Raj", time: "March 20, 10:25pm", amount: 50000 },
   { label: "Raj", time: "March 20, 10:25pm", amount: 50000 },
 ];
 
@@ -38,7 +44,7 @@ const EmptyUPIList: Component = () => (
 
 const HomeScreen: React.FC = () => {
   return (
-    <Screen title="Home" className="relative">
+    <Screen title="Home" className="relative" safeArea={false}>
       <Header title="Welcome to OthersPe!" subtitle="Stuck? Let others pay!" />
 
       <Section
@@ -57,7 +63,11 @@ const HomeScreen: React.FC = () => {
         )}
       </Section>
 
-      <Section title="History" action={{ text: "See All", fn: () => {} }}>
+      <Section
+        title="History"
+        action={{ text: "See All", fn: () => {} }}
+        className={cx(Platform.isWeb ? "pb-6" : "pb-safe")}
+      >
         {!mockHistoryList.length ? (
           <Section.EmptyText className="mt-14">
             Your recent transaction will show up here,
@@ -79,7 +89,7 @@ const HomeScreen: React.FC = () => {
           className="w-full"
           iconClassName="text-primary-500"
         >
-          Scan & Pay
+          Scan and Request
         </Button>
       </Container>
     </Screen>
