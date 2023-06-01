@@ -23,7 +23,7 @@ const Screen: Component<Props> = ({
       <IonContent
         fullscreen
         className={cx(
-          "h-full mx-auto max-w-auto lg:max-w-sm self-center hhj",
+          "h-full mx-auto max-w-auto lg:max-w-sm self-center",
           className
         )}
       >
