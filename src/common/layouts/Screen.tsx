@@ -8,6 +8,7 @@ type Props = {
   subtitle?: string;
   toolbar?: boolean;
   safeArea?: boolean;
+  contentClassName?: string;
 };
 
 const Screen: Component<Props> = ({
@@ -17,6 +18,7 @@ const Screen: Component<Props> = ({
   safeArea = true,
   children,
   className,
+  contentClassName,
 }) => {
   return (
     <IonPage className={cx(safeArea && "pt-safe")} title={title}>
@@ -24,12 +26,12 @@ const Screen: Component<Props> = ({
         fullscreen
         className={cx(
           "h-full mx-auto max-w-auto lg:max-w-sm self-center",
-          className
+          contentClassName
         )}
       >
         {toolbar && <Toolbar className="mb-6 mt-9" {...{ title, subtitle }} />}
 
-        {children}
+        <div className={className}>{children}</div>
       </IonContent>
     </IonPage>
   );

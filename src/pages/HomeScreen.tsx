@@ -44,7 +44,12 @@ const EmptyUPIList: Component = () => (
 
 const HomeScreen: React.FC = () => {
   return (
-    <Screen title="Home" className="relative" safeArea={false}>
+    <Screen
+      title="Home"
+      contentClassName="relative"
+      className="pb-24"
+      safeArea={false}
+    >
       <Header title="Welcome to OthersPe!" subtitle="Stuck? Let others pay!" />
 
       <Section
@@ -63,11 +68,7 @@ const HomeScreen: React.FC = () => {
         )}
       </Section>
 
-      <Section
-        title="History"
-        action={{ text: "See All", fn: () => {} }}
-        className={cx(Platform.isWeb ? "pb-6" : "pb-safe")}
-      >
+      <Section title="History" action={{ text: "See All", fn: () => {} }}>
         {!mockHistoryList.length ? (
           <Section.EmptyText className="mt-14">
             Your recent transaction will show up here,
@@ -83,7 +84,7 @@ const HomeScreen: React.FC = () => {
         )}
       </Section>
 
-      <Container className="absolute bottom-0 mb-8">
+      <Container className="fixed bottom-0 mb-8">
         <Button
           Icon={QrCodeIcon}
           className="w-full"
