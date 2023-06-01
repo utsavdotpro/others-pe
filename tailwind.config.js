@@ -16,6 +16,12 @@ module.exports = {
         disabled: {
           500: "#848484",
         },
+        gray: {
+          500: "#959FA0",
+        },
+      },
+      fontSize: {
+        xxs: ["8px", "12px"],
       },
     },
   },

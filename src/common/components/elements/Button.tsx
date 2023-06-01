@@ -29,7 +29,7 @@ const Button: Component<Props> & Variant = ({
       disabled={disabled}
       {...restProps}
     >
-      {Icon && <Icon className={cx("me-2.5 w-6 h-6", iconClassName)} />}
+      {Icon && <Icon className={cx("me-6 w-6 h-6", iconClassName)} />}
 
       {children}
     </button>
