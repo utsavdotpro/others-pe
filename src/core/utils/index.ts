@@ -14,3 +14,12 @@ export const debounce = (func: (...args: any[]) => void, wait: number) => {
     timeout = setTimeout(() => func(...args), wait);
   };
 };
+
+export const formatAmount = (amount: number) => {
+  return amount.toLocaleString("en-IN", {
+    style: "currency",
+    currency: "INR",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+  });
+};
