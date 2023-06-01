@@ -1,5 +1,4 @@
 import { UserPlusIcon, QrCodeIcon } from "@heroicons/react/24/outline";
-import cx from "clsx";
 
 import Header from "@components/Header";
 import Button from "@elements/Button";
@@ -9,7 +8,6 @@ import Container from "@layouts/Container";
 import type { Component } from "@appTypes/.";
 import UPIItem from "@components/UPIItem";
 import HistoryItem from "@components/HistoryItem";
-import { Platform } from "@lib/platform";
 
 const mockUPIList = [
   { upiId: "sannan@ybl" },
