@@ -26,7 +26,7 @@ const App: React.FC = () => (
         </Route>
         {/* TODO: change default path to onboarding */}
         <Route exact path="/">
-          <Redirect to="/home" />
+          <Redirect to="/onboarding" />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>
