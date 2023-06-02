@@ -7,6 +7,7 @@ import Screen from "@layouts/Screen";
 import LocalStorage, { StorageItem } from "@lib/storage";
 import { debounce, validateUPIId } from "@utils/index";
 import { useRef, useState } from "react";
+import useRouter from "@hooks/use-router";
 
 const validateDebounce = debounce(
   (value: string, setErrorFn: React.Dispatch<React.SetStateAction<boolean>>) =>
@@ -15,6 +16,8 @@ const validateDebounce = debounce(
 );
 
 const AddUPIScreen: React.FC = () => {
+  const { replace } = useRouter();
+
   const [upiId, setUpiId] = useState("");
   const [error, setError] = useState(false);
   const [isOnboardingComplete, setIsOnboardingComplete] = useState(
@@ -38,6 +41,9 @@ const AddUPIScreen: React.FC = () => {
   const skipOnboarding = () => {
     LocalStorage.setItem(StorageItem.isOnboardingComplete, "true");
     setIsOnboardingComplete(true);
+
+    // TODO: use url path from constant
+    replace("/home");
   };
 
   return (
