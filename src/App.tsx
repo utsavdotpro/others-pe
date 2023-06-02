@@ -5,6 +5,7 @@ import OnboardingScreen from "@pages/OnboardingScreen";
 import { Redirect, Route } from "react-router-dom";
 import AddUPIScreen from "@pages/AddUPIScreen";
 import HistoryScreen from "@pages/HistoryScreen";
+import PeopleScreen from "@pages/PeopleScreen";
 
 import "./App.css";
 // Core CSS required for Ionic components to work properly
@@ -27,6 +28,9 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/history">
           <HistoryScreen />
+        </Route>
+        <Route exact path="/people">
+          <PeopleScreen />
         </Route>
         {/* TODO: change default path to onboarding */}
         <Route exact path="/">

@@ -52,7 +52,8 @@ const HomeScreen: React.FC = () => {
       <Section
         title="People"
         className="mb-8"
-        action={{ text: "See All", fn: () => {} }}
+        // TODO: Use url path from constant
+        action={{ text: "See All", fn: () => push("/people") }}
       >
         {!mockUPIList.length ? (
           <EmptyUPIList />
