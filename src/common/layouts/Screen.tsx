@@ -5,16 +5,12 @@ import cx from "clsx";
 
 type Props = {
   title: string;
-  subtitle?: string;
-  toolbar?: boolean;
   safeArea?: boolean;
   contentClassName?: string;
 };
 
 const Screen: Component<Props> = ({
   title,
-  subtitle,
-  toolbar,
   safeArea = true,
   children,
   className,
@@ -29,8 +25,6 @@ const Screen: Component<Props> = ({
           contentClassName
         )}
       >
-        {toolbar && <Toolbar className="mb-6 mt-9" {...{ title, subtitle }} />}
-
         <div className={className}>{children}</div>
       </IonContent>
     </IonPage>

@@ -1,3 +1,4 @@
+import Toolbar from "@components/Toolbar";
 import Button from "@elements/Button";
 import Input from "@elements/Input";
 import Container from "@layouts/Container";
@@ -30,7 +31,9 @@ const AddUPIScreen: React.FC = () => {
   };
 
   return (
-    <Screen title="Add new UPI Id" subtitle="Your friends UPI Id" toolbar>
+    <Screen title="Add UPI Id">
+      <Toolbar title="Add new UPI Id" subtitle="Your friends UPI Id" />
+
       <Container>
         <Input
           value={upiId}
