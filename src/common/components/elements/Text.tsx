@@ -7,7 +7,14 @@ interface Props extends PropsWithoutRef<JSX.IntrinsicElements["span"]> {
   bold?: boolean;
 };
 
-const Text: Component<Props> = ({ bold, block, className, children }) => {
+const Text: Component<Props> = ({
+  bold,
+  block,
+  className,
+  children,
+  onClick,
+  ...restProps
+}) => {
   return (
     <span
       className={cx(
@@ -16,8 +23,11 @@ const Text: Component<Props> = ({ bold, block, className, children }) => {
           "font-bold": bold,
           block,
         },
+        onClick && "cursor-pointer select-none",
         className
       )}
+      onClick={onClick}
+      {...restProps}
     >
       {children}
     </span>

@@ -8,7 +8,7 @@ const OnboardingScreen: React.FC = () => {
   const { push } = useRouter();
 
   return (
-    <Screen title="Onboarding" safeArea={false}>
+    <Screen title="Onboarding" safeArea={false} className="h-full">
       <Container className="flex flex-col justify-end h-full text-center bg-primary-500">
         <Text className="text-3xl" bold>
           Scan. Request. <br />

@@ -78,7 +78,7 @@ const HomeScreen: React.FC = () => {
         )}
       </Section>
 
-      <Container className="fixed bottom-0 mb-8">
+      <Container className="fixed bottom-0 mb-8 max-w-auto lg:max-w-sm">
         <Button
           Icon={QrCodeIcon}
           className="w-full"
