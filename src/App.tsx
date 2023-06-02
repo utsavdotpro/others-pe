@@ -3,11 +3,12 @@ import { IonReactRouter } from "@ionic/react-router";
 import HomeScreen from "@pages/HomeScreen";
 import OnboardingScreen from "@pages/OnboardingScreen";
 import { Redirect, Route } from "react-router-dom";
+import AddUPIScreen from "@pages/AddUPIScreen";
+import HistoryScreen from "@pages/HistoryScreen";
 
 import "./App.css";
 // Core CSS required for Ionic components to work properly
 import "@ionic/react/css/core.css";
-import AddUPIScreen from "@pages/AddUPIScreen";
 
 setupIonicReact();
 
@@ -23,6 +24,9 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/home">
           <HomeScreen />
+        </Route>
+        <Route exact path="/history">
+          <HistoryScreen />
         </Route>
         {/* TODO: change default path to onboarding */}
         <Route exact path="/">

@@ -8,6 +8,7 @@ import Container from "@layouts/Container";
 import type { Component } from "@appTypes/.";
 import UPIItem from "@components/UPIItem";
 import HistoryItem from "@components/HistoryItem";
+import useRouter from "@hooks/use-router";
 
 const mockUPIList = [
   { upiId: "sannan@ybl" },
@@ -37,6 +38,8 @@ const EmptyUPIList: Component = () => (
 );
 
 const HomeScreen: React.FC = () => {
+  const { push } = useRouter();
+
   return (
     <Screen
       title="Home"
@@ -62,7 +65,11 @@ const HomeScreen: React.FC = () => {
         )}
       </Section>
 
-      <Section title="History" action={{ text: "See All", fn: () => {} }}>
+      <Section
+        title="History"
+        // TODO: Use url path from constant
+        action={{ text: "See All", fn: () => push("/history") }}
+      >
         {!mockHistoryList.length ? (
           <Section.EmptyText className="mt-14">
             Your recent transaction will show up here,
