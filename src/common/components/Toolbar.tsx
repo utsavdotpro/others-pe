@@ -4,8 +4,6 @@ import Text from "@elements/Text";
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import cx from "clsx";
 import useRouter from "@hooks/use-router";
-import LocalStorage, { StorageItem } from "@lib/storage";
-import { useState } from "react";
 import { Platform } from "@lib/platform";
 
 type Props = {
@@ -13,6 +11,7 @@ type Props = {
   subtitle?: string;
   topSpacing?: boolean;
   bottomSpacing?: boolean;
+  RightContent?: JSX.Element;
 };
 
 const Toolbar: Component<Props> = ({
@@ -21,16 +20,9 @@ const Toolbar: Component<Props> = ({
   className,
   topSpacing = true,
   bottomSpacing = true,
+  RightContent,
 }) => {
   const { goBack, canGoBack } = useRouter();
-  const [isOnboardingComplete, setIsOnboardingComplete] = useState(
-    LocalStorage.getBoolean(StorageItem.isOnboardingComplete)
-  );
-
-  const skipOnboarding = () => {
-    LocalStorage.setItem(StorageItem.isOnboardingComplete, "true");
-    setIsOnboardingComplete(true);
-  };
 
   return (
     <Container
@@ -56,7 +48,7 @@ const Toolbar: Component<Props> = ({
         <Text className="text-xs">{subtitle}</Text>
       </div>
 
-      {!isOnboardingComplete && <Text onClick={skipOnboarding}>skip</Text>}
+      {RightContent && <div>{RightContent}</div>}
     </Container>
   );
 };
