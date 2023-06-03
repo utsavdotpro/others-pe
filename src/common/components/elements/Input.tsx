@@ -7,26 +7,32 @@ interface Props extends PropsWithoutRef<JSX.IntrinsicElements["input"]> {
   inputClassName?: string;
   error?: boolean;
   errorText?: string;
+  dynamicWidth?: boolean;
 }
 
 const Input: Component<Props> = ({
+  value,
   error,
   errorText,
   className,
   inputClassName,
+  dynamicWidth,
   ...restProps
 }) => {
   return (
     <div className="relative">
       <div
         className={cx(
-          "py-3.5 px-5 rounded-xl flex items-center border-2 border-primary-500 placeholder:text-disabled-500",
+          "py-3.5 px-5 rounded-xl flex items-center border-2 border-primary-500 placeholder:text-disabled-500 max-w-full",
           error && "border-error-500",
+          dynamicWidth && "w-fit",
           className
         )}
       >
         <input
           className={cx("w-full bg-transparent outline-none", inputClassName)}
+          style={dynamicWidth ? { width: `${value?.toString().length}ch` } : {}}
+          value={value}
           {...restProps}
         />
       </div>
