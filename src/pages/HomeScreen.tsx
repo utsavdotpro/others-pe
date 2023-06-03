@@ -91,6 +91,8 @@ const HomeScreen: React.FC = () => {
           Icon={QrCodeIcon}
           className="w-full"
           iconClassName="text-primary-500"
+          // TODO: redirect to scan screen
+          onClick={() => push("/request-payment")}
         >
           Scan and Request
         </Button>
