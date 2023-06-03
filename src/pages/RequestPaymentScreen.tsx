@@ -1,11 +1,15 @@
 import Toolbar from "@components/Toolbar";
+import Input from "@elements/Input";
 import Text from "@elements/Text";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import Container from "@layouts/Container";
 import Screen from "@layouts/Screen";
 import MoneyInput from "@modules/request-payment/MoneyInput";
+import { useState } from "react";
 
 const RequestPaymentScreen: React.FC = () => {
+  const [note, setNote] = useState("");
+
   return (
     <Screen title="Request Payment" className="h-full" safeArea={false}>
       <Toolbar className="bg-primary-500" />
@@ -23,7 +27,17 @@ const RequestPaymentScreen: React.FC = () => {
         </Text>
         <Text block>Banking name: Utsav Barnwal</Text>
 
-        <MoneyInput className="mt-6" />
+        <MoneyInput className="mt-6 mb-4" />
+
+        <Input
+          value={note}
+          className="bg-white border-none !rounded-2xl text-xs inline-block mx-auto"
+          inputClassName="min-w-[10ch] text-center"
+          onChange={(e) => setNote(e.target.value)}
+          placeholder="Add a note"
+          errorText="Enter a correct UPI Id"
+          dynamicWidth
+        />
       </Container>
     </Screen>
   );
