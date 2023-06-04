@@ -14,14 +14,14 @@ const mockUPIList = [
 
 const UPISelector: Component<{
   onChange?: (value: string) => void;
-}> = ({ className, onChange }) => {
+  defaultValue?: string;
+}> = ({ className, onChange, defaultValue }) => {
   return (
     <div className={cx("", className)}>
       <RadioGroup
         name="selectedUPI"
         items={mockUPIList.map(({ upiId }) => ({ value: upiId, label: upiId }))}
-        defaultValue="MALE"
-        onChange={onChange}
+        {...{ defaultValue, onChange }}
       />
     </div>
   );
@@ -63,7 +63,11 @@ const RequestSheet: Component = ({ className }) => {
           />
         </div>
       ) : (
-        <UPISelector className="mt-6 mb-5" onChange={handleUPIChange} />
+        <UPISelector
+          className="mt-6 mb-5"
+          onChange={handleUPIChange}
+          defaultValue={selectedUPI.upiId}
+        />
       )}
 
       <Button className="w-full">Request Payment</Button>
