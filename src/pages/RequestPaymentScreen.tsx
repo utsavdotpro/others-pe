@@ -5,13 +5,19 @@ import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import Container from "@layouts/Container";
 import Screen from "@layouts/Screen";
 import MoneyInput from "@modules/request-payment/MoneyInput";
+import RequestSheet from "@modules/request-payment/RequestSheet";
 import { useState } from "react";
 
 const RequestPaymentScreen: React.FC = () => {
   const [note, setNote] = useState("");
 
   return (
-    <Screen title="Request Payment" className="h-full" safeArea={false}>
+    <Screen
+      title="Request Payment"
+      className="h-full"
+      contentClassName="relative"
+      safeArea={false}
+    >
       <Toolbar className="bg-primary-500" />
 
       <Container className="h-full text-center bg-primary-500">
@@ -39,6 +45,8 @@ const RequestPaymentScreen: React.FC = () => {
           dynamicWidth
         />
       </Container>
+
+      <RequestSheet className="fixed bottom-0 z-50" />
     </Screen>
   );
 };
