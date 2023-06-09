@@ -1,3 +1,4 @@
+import screen from "@constants/screens";
 import Button from "@elements/Button";
 import Text from "@elements/Text";
 import useRouter from "@hooks/use-router";
@@ -15,15 +16,15 @@ const OnboardingScreen: React.FC = () => {
           Get Paid.
         </Text>
 
-        {/* TODO: Adjust the spacing between the text fields */}
-
         <Text>
           Request payments from your <br />
           friends & family
         </Text>
 
-        {/* TODO: use url path from constant */}
-        <Button onClick={() => replace("/add-upi")} className="mt-10 mb-8">
+        <Button
+          onClick={() => replace(screen.addUPI.path)}
+          className="mt-10 mb-8"
+        >
           Get Started
         </Button>
       </Container>
