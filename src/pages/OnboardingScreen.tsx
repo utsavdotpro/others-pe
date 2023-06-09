@@ -3,9 +3,16 @@ import Text from "@elements/Text";
 import useRouter from "@hooks/use-router";
 import Container from "@layouts/Container";
 import Screen from "@layouts/Screen";
+import LocalStorage, { StorageItem } from "@lib/storage";
+import { useEffect } from "react";
 
 const OnboardingScreen: React.FC = () => {
-  const { push } = useRouter();
+  const { push, replace } = useRouter();
+
+  useEffect(() => {
+    if (LocalStorage.getBoolean(StorageItem.isOnboardingComplete))
+      replace("/home");
+  }, []);
 
   return (
     <Screen title="Onboarding" safeArea={false} className="h-full">
