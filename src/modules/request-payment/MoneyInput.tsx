@@ -23,7 +23,7 @@ const MoneyInput: Component = ({ className }) => {
 
       <input
         className="inline h-16 max-w-full text-6xl bg-transparent outline-none text-start"
-        style={{ width: `${value.length}ch` }}
+        style={{ width: `${value.length + 0.5}ch` }}
         type="number"
         value={value}
         onChange={handleChange}

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
 import { Component } from "@appTypes/.";
 import clsx from "clsx";
+import React, { useState } from "react";
 
 type Props = {
   defaultValue?: string;
@@ -32,7 +32,7 @@ const RadioGroup: Component<Props> = ({
             <div className="flex items-center">
               <input
                 type="radio"
-                // className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                className="cursor-pointer"
                 defaultChecked={isSelected}
                 id={value}
                 {...{ value, name }}
@@ -40,7 +40,7 @@ const RadioGroup: Component<Props> = ({
               <label
                 htmlFor={value}
                 className={clsx(
-                  "text-sm ms-5",
+                  "text-sm ms-5 cursor-pointer",
                   isSelected ? "text-black" : "text-[#606060]"
                 )}
               >
