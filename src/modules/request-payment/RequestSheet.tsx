@@ -3,6 +3,7 @@ import Button from "@elements/Button";
 import Text from "@elements/Text";
 import RadioGroup from "@elements/form/RadioGroup";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import useRouter from "@hooks/use-router";
 import Container from "@layouts/Container";
 import cx from "clsx";
 import { useState } from "react";
@@ -29,6 +30,8 @@ const UPISelector: Component<{
 };
 
 const RequestSheet: Component = ({ className }) => {
+  const { push } = useRouter();
+
   const [selectedUPI, setSelectedUPI] = useState(mockUPIList[0]);
   const [selectionMode, setSelectionMode] = useState(false);
 
@@ -69,7 +72,10 @@ const RequestSheet: Component = ({ className }) => {
         />
       )}
 
-      <Button className="w-full">Request Payment</Button>
+      {/* TODO: use URL from constant */}
+      <Button onClick={() => push("/payment/complete")} className="w-full">
+        Request Payment
+      </Button>
     </Container>
   );
 };
