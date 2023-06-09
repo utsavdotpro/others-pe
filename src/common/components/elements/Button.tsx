@@ -8,6 +8,7 @@ interface Props extends PropsWithoutRef<JSX.IntrinsicElements["button"]> {
 }
 
 type Variant = {
+  Outline: Component<Props>;
   Primary: Component<Props>;
 };
 
@@ -35,6 +36,13 @@ const Button: Component<Props> & Variant = ({
     </button>
   );
 };
+
+Button.Outline = ({ className, ...rest }) => (
+  <Button
+    className={cx("bg-transparent border !text-black border-black", className)}
+    {...rest}
+  />
+);
 
 Button.Primary = ({ className, ...rest }) => (
   <Button
