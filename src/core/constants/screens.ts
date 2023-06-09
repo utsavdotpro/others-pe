@@ -6,10 +6,10 @@ import PaymentCompleteScreen from "@pages/PaymentCompleteScreen";
 import PeopleScreen from "@pages/PeopleScreen";
 import RequestPaymentScreen from "@pages/RequestPaymentScreen";
 
-export const screen = {
+const screen = {
   home: {
     name: "home",
-    path: "/",
+    path: "/home",
     Component: HomeScreen,
   },
   onboarding: {
@@ -43,3 +43,5 @@ export const screen = {
     Component: PaymentCompleteScreen,
   },
 };
+
+export default screen;
