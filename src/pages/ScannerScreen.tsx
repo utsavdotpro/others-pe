@@ -1,12 +1,14 @@
 import Toolbar from "@components/Toolbar";
+import TabBar from "@components/tab-bar/TabBar";
 import Container from "@layouts/Container";
 import Screen from "@layouts/Screen";
+import { BoltIcon, PhotoIcon } from "@heroicons/react/24/outline";
 
 const ScannerScreen: React.FC = () => {
   return (
     <Screen title="Onboarding" safeArea={false}>
       <div className="bg-black bg-opacity-20 pt-safe">
-        <Toolbar />
+        <Toolbar className="text-white" />
       </div>
 
       <Container className="flex flex-col items-center min-h-[calc(100vh-76px-env(safe-area-inset-top))] bg-black bg-opacity-20">
@@ -18,7 +20,13 @@ const ScannerScreen: React.FC = () => {
 
         <div className="flex-1" />
 
-        <div className="mb-8">Toolbar</div>
+        <TabBar
+          className="mb-8"
+          items={[
+            { label: "Upload QR", Icon: PhotoIcon },
+            { label: "Flash On", Icon: BoltIcon },
+          ]}
+        />
       </Container>
     </Screen>
   );
