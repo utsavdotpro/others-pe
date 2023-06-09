@@ -5,6 +5,7 @@ import OnboardingScreen from "@pages/OnboardingScreen";
 import PaymentCompleteScreen from "@pages/PaymentCompleteScreen";
 import PeopleScreen from "@pages/PeopleScreen";
 import RequestPaymentScreen from "@pages/RequestPaymentScreen";
+import ScannerScreen from "@pages/ScannerScreen";
 
 const screen = {
   home: {
@@ -36,6 +37,11 @@ const screen = {
     name: "payment/request",
     path: "/payment/request",
     Component: RequestPaymentScreen,
+  },
+  scanner: {
+    name: "scanner",
+    path: "/scanner",
+    Component: ScannerScreen,
   },
   paymentComplete: {
     name: "payment/complete",
