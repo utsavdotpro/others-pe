@@ -1,5 +1,5 @@
 import Toolbar from "@components/Toolbar";
-import TabBar from "@components/tab-bar/TabBar";
+import TabBar from "@components/TabBar";
 import Container from "@layouts/Container";
 import Screen from "@layouts/Screen";
 import { BoltIcon, PhotoIcon } from "@heroicons/react/24/outline";
