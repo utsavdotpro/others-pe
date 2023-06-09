@@ -9,6 +9,9 @@ import type { Component } from "@appTypes/.";
 import UPIItem from "@components/UPIItem";
 import HistoryItem from "@components/HistoryItem";
 import useRouter from "@hooks/use-router";
+import { useEffect } from "react";
+import LocalStorage, { StorageItem } from "@lib/storage";
+import screen from "@constants/screens";
 
 const mockUPIList = [
   { upiId: "sannan@ybl" },
@@ -38,7 +41,12 @@ const EmptyUPIList: Component = () => (
 );
 
 const HomeScreen: React.FC = () => {
-  const { push } = useRouter();
+  const { push, replace } = useRouter();
+
+  useEffect(() => {
+    if (!LocalStorage.getBoolean(StorageItem.isOnboardingComplete))
+      replace("/onboarding");
+  }, []);
 
   return (
     <Screen
@@ -52,8 +60,7 @@ const HomeScreen: React.FC = () => {
       <Section
         title="People"
         className="mb-8"
-        // TODO: Use url path from constant
-        action={{ text: "See All", fn: () => push("/people") }}
+        action={{ text: "See All", fn: () => push(screen.people.path) }}
       >
         {!mockUPIList.length ? (
           <EmptyUPIList />
@@ -68,8 +75,7 @@ const HomeScreen: React.FC = () => {
 
       <Section
         title="History"
-        // TODO: Use url path from constant
-        action={{ text: "See All", fn: () => push("/history") }}
+        action={{ text: "See All", fn: () => push(screen.history.path) }}
       >
         {!mockHistoryList.length ? (
           <Section.EmptyText className="mt-14">
@@ -92,7 +98,7 @@ const HomeScreen: React.FC = () => {
           className="w-full"
           iconClassName="text-primary-500"
           // TODO: redirect to scan screen
-          onClick={() => push("/payment/request")}
+          onClick={() => push(screen.requestPayment.path)}
         >
           Scan and Request
         </Button>

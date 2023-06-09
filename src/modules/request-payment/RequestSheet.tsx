@@ -1,4 +1,5 @@
 import { Component } from "@appTypes/.";
+import screen from "@constants/screens";
 import Button from "@elements/Button";
 import Text from "@elements/Text";
 import RadioGroup from "@elements/form/RadioGroup";
@@ -72,8 +73,10 @@ const RequestSheet: Component = ({ className }) => {
         />
       )}
 
-      {/* TODO: use URL from constant */}
-      <Button onClick={() => replace("/payment/complete")} className="w-full">
+      <Button
+        onClick={() => replace(screen.paymentComplete.path)}
+        className="w-full"
+      >
         Request Payment
       </Button>
     </Container>
