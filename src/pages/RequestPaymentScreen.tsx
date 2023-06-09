@@ -18,7 +18,9 @@ const RequestPaymentScreen: React.FC = () => {
       contentClassName="relative"
       safeArea={false}
     >
-      <Toolbar className="bg-primary-500" />
+      <div className="bg-primary-500 pt-safe">
+        <Toolbar />
+      </div>
 
       <Container className="h-full text-center bg-primary-500">
         <div className="flex items-center justify-center">
