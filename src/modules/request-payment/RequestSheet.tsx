@@ -3,6 +3,7 @@ import Button from "@elements/Button";
 import Text from "@elements/Text";
 import RadioGroup from "@elements/form/RadioGroup";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import Container from "@layouts/Container";
 import cx from "clsx";
 import { useState } from "react";
 
@@ -37,11 +38,9 @@ const RequestSheet: Component = ({ className }) => {
   };
 
   return (
-    <div
-      className={cx(
-        "bg-white w-full py-4 pb-8 px-5 rounded-t-[20px]",
-        className
-      )}
+    <Container
+      className={cx("bg-white w-full py-4 pb-8 rounded-t-[20px]", className)}
+      widthFullScreen
     >
       <Text className="text-xl font-semibold">Request</Text>
 
@@ -71,7 +70,7 @@ const RequestSheet: Component = ({ className }) => {
       )}
 
       <Button className="w-full">Request Payment</Button>
-    </div>
+    </Container>
   );
 };
 
