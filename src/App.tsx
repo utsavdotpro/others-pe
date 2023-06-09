@@ -40,9 +40,8 @@ const App: React.FC = () => (
         <Route exact path="/payment/complete">
           <PaymentCompleteScreen />
         </Route>
-        {/* TODO: change default path to onboarding */}
         <Route exact path="/">
-          <Redirect to="/onboarding" />
+          <Redirect to="/home" />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>

@@ -9,6 +9,8 @@ import type { Component } from "@appTypes/.";
 import UPIItem from "@components/UPIItem";
 import HistoryItem from "@components/HistoryItem";
 import useRouter from "@hooks/use-router";
+import { useEffect } from "react";
+import LocalStorage, { StorageItem } from "@lib/storage";
 
 const mockUPIList = [
   { upiId: "sannan@ybl" },
@@ -38,7 +40,12 @@ const EmptyUPIList: Component = () => (
 );
 
 const HomeScreen: React.FC = () => {
-  const { push } = useRouter();
+  const { push, replace } = useRouter();
+
+  useEffect(() => {
+    if (!LocalStorage.getBoolean(StorageItem.isOnboardingComplete))
+      replace("/onboarding");
+  }, []);
 
   return (
     <Screen

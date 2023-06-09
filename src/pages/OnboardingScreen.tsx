@@ -3,16 +3,9 @@ import Text from "@elements/Text";
 import useRouter from "@hooks/use-router";
 import Container from "@layouts/Container";
 import Screen from "@layouts/Screen";
-import LocalStorage, { StorageItem } from "@lib/storage";
-import { useEffect } from "react";
 
 const OnboardingScreen: React.FC = () => {
-  const { push, replace } = useRouter();
-
-  useEffect(() => {
-    if (LocalStorage.getBoolean(StorageItem.isOnboardingComplete))
-      replace("/home");
-  }, []);
+  const { replace } = useRouter();
 
   return (
     <Screen title="Onboarding" safeArea={false} className="h-full">
@@ -30,7 +23,7 @@ const OnboardingScreen: React.FC = () => {
         </Text>
 
         {/* TODO: use url path from constant */}
-        <Button onClick={() => push("/add-upi")} className="mt-10 mb-8">
+        <Button onClick={() => replace("/add-upi")} className="mt-10 mb-8">
           Get Started
         </Button>
       </Container>
