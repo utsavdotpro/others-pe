@@ -30,7 +30,7 @@ const UPISelector: Component<{
 };
 
 const RequestSheet: Component = ({ className }) => {
-  const { push } = useRouter();
+  const { replace } = useRouter();
 
   const [selectedUPI, setSelectedUPI] = useState(mockUPIList[0]);
   const [selectionMode, setSelectionMode] = useState(false);
@@ -73,7 +73,7 @@ const RequestSheet: Component = ({ className }) => {
       )}
 
       {/* TODO: use URL from constant */}
-      <Button onClick={() => push("/payment/complete")} className="w-full">
+      <Button onClick={() => replace("/payment/complete")} className="w-full">
         Request Payment
       </Button>
     </Container>
