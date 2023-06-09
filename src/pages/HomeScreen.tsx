@@ -86,11 +86,13 @@ const HomeScreen: React.FC = () => {
         )}
       </Section>
 
-      <Container className="fixed bottom-0 mb-8 max-w-auto lg:max-w-sm">
+      <Container className="fixed bottom-0 mb-8" widthFullScreen>
         <Button
           Icon={QrCodeIcon}
           className="w-full"
           iconClassName="text-primary-500"
+          // TODO: redirect to scan screen
+          onClick={() => push("/request-payment")}
         >
           Scan and Request
         </Button>

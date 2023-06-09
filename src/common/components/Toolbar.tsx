@@ -28,8 +28,8 @@ const Toolbar: Component<Props> = ({
     <Container
       className={cx(
         "flex items-center",
-        topSpacing && Platform.isWeb ? "mt-9" : "mt-4",
-        { "mb-6": bottomSpacing },
+        topSpacing && (Platform.isWeb ? "pt-9" : "pt-4"),
+        { "pb-6": bottomSpacing },
         className
       )}
     >
