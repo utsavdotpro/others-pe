@@ -1,12 +1,13 @@
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import HomeScreen from "@pages/HomeScreen";
-import OnboardingScreen from "@pages/OnboardingScreen";
-import { Redirect, Route } from "react-router-dom";
 import AddUPIScreen from "@pages/AddUPIScreen";
 import HistoryScreen from "@pages/HistoryScreen";
+import HomeScreen from "@pages/HomeScreen";
+import OnboardingScreen from "@pages/OnboardingScreen";
+import PaymentCompleteScreen from "@pages/PaymentCompleteScreen";
 import PeopleScreen from "@pages/PeopleScreen";
 import RequestPaymentScreen from "@pages/RequestPaymentScreen";
+import { Redirect, Route } from "react-router-dom";
 
 import "./App.css";
 // Core CSS required for Ionic components to work properly
@@ -33,8 +34,11 @@ const App: React.FC = () => (
         <Route exact path="/people">
           <PeopleScreen />
         </Route>
-        <Route exact path="/request-payment">
+        <Route exact path="/payment/request">
           <RequestPaymentScreen />
+        </Route>
+        <Route exact path="/payment/complete">
+          <PaymentCompleteScreen />
         </Route>
         {/* TODO: change default path to onboarding */}
         <Route exact path="/">

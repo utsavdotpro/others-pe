@@ -92,7 +92,7 @@ const HomeScreen: React.FC = () => {
           className="w-full"
           iconClassName="text-primary-500"
           // TODO: redirect to scan screen
-          onClick={() => push("/request-payment")}
+          onClick={() => push("/payment/request")}
         >
           Scan and Request
         </Button>
