@@ -30,11 +30,9 @@ export const startQRScan = async (): Promise<string> => {
 
     const result = await BarcodeScanner.startScan();
 
-    if (result.hasContent) {
-      return result.content;
-    }
-
     showBackgroundForCamera();
+
+    if (result.hasContent) return result.content;
   }
 
   return Promise.resolve("");
