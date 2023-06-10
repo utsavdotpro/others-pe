@@ -3,37 +3,31 @@ import TabBar from "@components/TabBar";
 import Container from "@layouts/Container";
 import Screen from "@layouts/Screen";
 import { BoltIcon, PhotoIcon } from "@heroicons/react/24/outline";
-import { BarcodeScanner } from "@capacitor-community/barcode-scanner";
 import { useEffect } from "react";
 import { Platform } from "@lib/platform";
-
-const startScan = async () => {
-  await BarcodeScanner.checkPermission({ force: true });
-
-  document?.querySelector("body")?.classList.add("scanner-active");
-  BarcodeScanner.hideBackground();
-
-  const result = await BarcodeScanner.startScan();
-
-  if (result.hasContent) {
-    alert(result.content);
-  }
-
-  document?.querySelector("body")?.classList.add("scanner-active");
-};
-
-const stopScan = async () => {
-  BarcodeScanner.showBackground();
-  document?.querySelector("body")?.classList.remove("scanner-active");
-  await BarcodeScanner.stopScan();
-};
+import { startQRScan, stopQRScan } from "@lib/barcode-scanner";
+import useRouter from "@hooks/use-router";
+import screen from "@constants/screens";
 
 const ScannerScreen: React.FC = () => {
+  const { replace } = useRouter();
+
+  const onQRCodeScanned = (data: string) => {
+    alert(data);
+
+    replace(screen.requestPayment.path);
+  };
+
+  const startScan = async () => {
+    const data = await startQRScan();
+    if (data) onQRCodeScanned(data);
+  };
+
   useEffect(() => {
     if (!Platform.isDesktop) startScan();
 
     return () => {
-      stopScan();
+      stopQRScan();
     };
   }, []);
 
@@ -45,7 +39,7 @@ const ScannerScreen: React.FC = () => {
 
       <Container className="flex flex-col items-center min-h-[calc(100vh-60px-env(safe-area-inset-top))] bg-black bg-opacity-20">
         <div className="p-1.5 border-[5px] border-primary-500 mt-8 rounded-[35px]">
-          <div className="bg-white bg-opacity-10 text-white h-[275px] w-[275px] rounded-3xl flex items-center justify-center text-sm">
+          <div className="bg-white bg-opacity-20 text-white h-[275px] w-[275px] rounded-3xl flex items-center justify-center text-sm">
             Scan any QR to request
           </div>
         </div>
