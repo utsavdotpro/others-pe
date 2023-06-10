@@ -290,6 +290,11 @@
   resolved "https://registry.npmjs.org/@capacitor/keyboard/-/keyboard-5.0.2.tgz"
   integrity sha512-5qauopAd9Dlltzi87i/WHMBsocCf0BJqVxRZ3H+kifQm4BLHGokrzuanddEJd6MPOnglSl3H3C9oElJB3wkVVQ==
 
+"@capacitor/share@^5.0.4":
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/@capacitor/share/-/share-5.0.4.tgz#ec5b5792e83333831a2c376e26a0b163647e2712"
+  integrity sha512-Owkg6xmpWAoUZxu+joc+L5PxrWdGR/nAhKYGb2mVenf0Fljm1kwjKKJRySLmaO4uHiDD2JVwV2azV2w6ZC6DTg==
+
 "@capacitor/status-bar@5.0.2":
   version "5.0.2"
   resolved "https://registry.npmjs.org/@capacitor/status-bar/-/status-bar-5.0.2.tgz"

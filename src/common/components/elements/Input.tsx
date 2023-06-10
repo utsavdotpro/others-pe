@@ -1,6 +1,6 @@
 import { Component } from "@appTypes/.";
 import cx from "clsx";
-import { PropsWithoutRef } from "react";
+import { PropsWithoutRef, useState } from "react";
 import Text from "@elements/Text";
 
 interface Props extends PropsWithoutRef<JSX.IntrinsicElements["input"]> {
@@ -8,17 +8,27 @@ interface Props extends PropsWithoutRef<JSX.IntrinsicElements["input"]> {
   error?: boolean;
   errorText?: string;
   dynamicWidth?: boolean;
+  defaultValue?: string;
+  onValueChange?: (value: string) => void;
 }
 
 const Input: Component<Props> = ({
-  value,
   error,
   errorText,
   className,
   inputClassName,
   dynamicWidth,
+  defaultValue = "",
+  onValueChange,
   ...restProps
 }) => {
+  const [value, setValue] = useState(defaultValue);
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+    onValueChange?.(e.target.value);
+  };
+
   return (
     <div className="relative">
       <div
@@ -32,7 +42,7 @@ const Input: Component<Props> = ({
         <input
           className={cx("w-full bg-transparent outline-none", inputClassName)}
           style={dynamicWidth ? { width: `${value?.toString().length}ch` } : {}}
-          value={value}
+          {...{ value, onChange }}
           {...restProps}
         />
       </div>
