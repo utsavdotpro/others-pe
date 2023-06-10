@@ -10,6 +10,8 @@ import MoneyInput from "@modules/request-payment/MoneyInput";
 import RequestSheet from "@modules/request-payment/RequestSheet";
 import { useMemo, useRef } from "react";
 import { useLocation } from "react-router";
+import { Share } from "@capacitor/share";
+import { generateUPILink } from "@utils/index";
 
 type LocationProps = {
   qrData: string;
@@ -41,12 +43,25 @@ const RequestPaymentScreen: React.FC = () => {
 
   const { pn: payeeName, pa: vpa } = upiData;
 
-  // await Share.share({
-  //   title: "See cool stuff",
-  //   text: data,
-  //   url: "http://ionicframework.com/",
-  //   dialogTitle: "Share with buddies",
-  // });
+  const onRequestPayment = async () => {
+    if (!valueRef.current.amount || valueRef.current.amount === "0") {
+      alert("Please enter an amount");
+      return;
+    }
+
+    const upi: UPI = {
+      ...upiData,
+      am: Number(valueRef.current.amount),
+      tn: valueRef.current.note,
+    };
+
+    await Share.share({
+      title: "Share payment link",
+      text: `Hey, can you please clear this payment of *₹${upi.am}* for me?\n\n`,
+      url: generateUPILink(upi),
+      dialogTitle: "Share with buddies",
+    });
+  };
 
   return (
     <Screen
@@ -89,7 +104,10 @@ const RequestPaymentScreen: React.FC = () => {
         />
       </Container>
 
-      <RequestSheet className="fixed bottom-0 z-50" />
+      <RequestSheet
+        onRequestPayment={onRequestPayment}
+        className="fixed bottom-0 z-50"
+      />
     </Screen>
   );
 };

@@ -12,5 +12,4 @@ export type UPI = {
   pn?: string; // name
   am?: number; // amount
   tn?: string; // note
-  cu?: string; // currency
 };

@@ -15,6 +15,10 @@ const mockUPIList = [
   { upiId: "raj@ybl" },
 ];
 
+type Props = {
+  onRequestPayment: () => void;
+};
+
 const UPISelector: Component<{
   onChange?: (value: string) => void;
   defaultValue?: string;
@@ -30,7 +34,7 @@ const UPISelector: Component<{
   );
 };
 
-const RequestSheet: Component = ({ className }) => {
+const RequestSheet: Component<Props> = ({ className, onRequestPayment }) => {
   const { replace } = useRouter();
 
   const [selectedUPI, setSelectedUPI] = useState(mockUPIList[0]);
@@ -73,10 +77,7 @@ const RequestSheet: Component = ({ className }) => {
         />
       )}
 
-      <Button
-        onClick={() => replace(screen.paymentComplete.path)}
-        className="w-full"
-      >
+      <Button onClick={onRequestPayment} className="w-full">
         Request Payment
       </Button>
     </Container>
