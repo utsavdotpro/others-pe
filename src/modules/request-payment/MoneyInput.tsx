@@ -5,16 +5,30 @@ import { useState } from "react";
 
 const MAX_AMOUNT = 100000;
 
-const MoneyInput: Component = ({ className }) => {
-  const [value, setValue] = useState("0");
+type Props = {
+  defaultValue?: string;
+  onValueChange?: (value: string) => void;
+};
+
+const MoneyInput: Component<Props> = ({
+  className,
+  defaultValue = "0",
+  onValueChange,
+}) => {
+  const [value, setValue] = useState<string>(defaultValue);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value === "") return setValue("0");
+    if (e.target.value === "") {
+      setValue("0");
+      onValueChange?.("0");
+      return;
+    }
 
     // TODO: show message to user
     if (parseInt(e.target.value) > MAX_AMOUNT) return;
 
     setValue(parseInt(e.target.value).toString());
+    onValueChange?.(e.target.value);
   };
 
   return (
