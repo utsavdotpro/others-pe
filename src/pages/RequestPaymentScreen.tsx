@@ -1,15 +1,48 @@
+import { UPI } from "@appTypes/.";
 import Toolbar from "@components/Toolbar";
 import Input from "@elements/Input";
 import Text from "@elements/Text";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import useRouter from "@hooks/use-router";
 import Container from "@layouts/Container";
 import Screen from "@layouts/Screen";
 import MoneyInput from "@modules/request-payment/MoneyInput";
 import RequestSheet from "@modules/request-payment/RequestSheet";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { useLocation } from "react-router";
+
+type LocationProps = {
+  qrData: string;
+};
 
 const RequestPaymentScreen: React.FC = () => {
+  const { replace } = useRouter();
+  const location = useLocation<LocationProps>();
   const [note, setNote] = useState("");
+
+  if (!location.state?.qrData) {
+    replace("/");
+    return null;
+  }
+
+  const upiData = useMemo(() => {
+    const obj = Object.fromEntries(
+      new URLSearchParams(location.state.qrData.replace("upi://pay?", ""))
+    ) as unknown as UPI;
+
+    if (obj.tn) setNote(obj.tn);
+
+    return obj;
+  }, [location.state.qrData]);
+
+  const { pn: payeeName, pa: vpa, am: amount } = upiData;
+
+  // await Share.share({
+  //   title: "See cool stuff",
+  //   text: data,
+  //   url: "http://ionicframework.com/",
+  //   dialogTitle: "Share with buddies",
+  // });
 
   return (
     <Screen
@@ -24,16 +57,16 @@ const RequestPaymentScreen: React.FC = () => {
 
       <Container className="h-full text-center bg-primary-500">
         <div className="flex items-center justify-center">
-          <Text className="text-xl">Utsav Pro</Text>
+          {payeeName && <Text className="text-xl">{payeeName}</Text>}
 
           {/* TODO: replace icon with Figma */}
           <CheckCircleIcon className="w-6 h-6 text-white ms-1.5" />
         </div>
 
         <Text className="mt-1.5" block>
-          utsavpro@icici
+          {vpa}
         </Text>
-        <Text block>Banking name: Utsav Barnwal</Text>
+        {/* <Text block>Banking name: Utsav Barnwal</Text> */}
 
         <MoneyInput className="mt-6 mb-4" />
 
