@@ -8,7 +8,7 @@ import Container from "@layouts/Container";
 import Screen from "@layouts/Screen";
 import MoneyInput from "@modules/request-payment/MoneyInput";
 import RequestSheet from "@modules/request-payment/RequestSheet";
-import { useMemo, useState } from "react";
+import { useMemo, useRef } from "react";
 import { useLocation } from "react-router";
 
 type LocationProps = {
@@ -18,7 +18,10 @@ type LocationProps = {
 const RequestPaymentScreen: React.FC = () => {
   const { replace } = useRouter();
   const location = useLocation<LocationProps>();
-  const [note, setNote] = useState("");
+  const valueRef = useRef({
+    amount: "0",
+    note: "",
+  });
 
   if (!location.state?.qrData) {
     replace("/");
@@ -30,7 +33,7 @@ const RequestPaymentScreen: React.FC = () => {
       new URLSearchParams(location.state.qrData.replace("upi://pay?", ""))
     ) as unknown as UPI;
 
-    if (obj.tn) setNote(obj.tn);
+    if (obj.tn) valueRef.current.note = obj.tn;
 
     return obj;
   }, [location.state.qrData]);
@@ -68,13 +71,17 @@ const RequestPaymentScreen: React.FC = () => {
         </Text>
         {/* <Text block>Banking name: Utsav Barnwal</Text> */}
 
-        <MoneyInput className="mt-6 mb-4" />
+        <MoneyInput
+          className="mt-6 mb-4"
+          defaultValue={valueRef.current.amount}
+          onValueChange={(value) => (valueRef.current.amount = value)}
+        />
 
         <Input
-          value={note}
+          defaultValue={valueRef.current.note}
+          onValueChange={(value) => (valueRef.current.note = value)}
           className="bg-white border-none !rounded-2xl text-xs inline-block mx-auto"
           inputClassName="min-w-[10ch] text-center"
-          onChange={(e) => setNote(e.target.value)}
           placeholder="Add a note"
           errorText="Enter a correct UPI Id"
           dynamicWidth
