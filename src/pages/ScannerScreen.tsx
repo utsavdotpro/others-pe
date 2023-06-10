@@ -10,10 +10,10 @@ import screen from "@constants/screens";
 import { useHistory } from "react-router";
 
 const ScannerScreen: React.FC = () => {
-  const { replace } = useHistory();
+  const { push } = useHistory();
 
   const onQRCodeScanned = async (data: string) => {
-    replace({
+    push({
       pathname: screen.requestPayment.path,
       state: { qrData: data },
     });

@@ -34,11 +34,12 @@ const RequestPaymentScreen: React.FC = () => {
     ) as unknown as UPI;
 
     if (obj.tn) valueRef.current.note = obj.tn;
+    if (obj.am) valueRef.current.amount = obj.am.toString();
 
     return obj;
   }, [location.state.qrData]);
 
-  const { pn: payeeName, pa: vpa, am: amount } = upiData;
+  const { pn: payeeName, pa: vpa } = upiData;
 
   // await Share.share({
   //   title: "See cool stuff",
