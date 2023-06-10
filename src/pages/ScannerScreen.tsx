@@ -6,16 +6,17 @@ import { BoltIcon, PhotoIcon } from "@heroicons/react/24/outline";
 import { useEffect } from "react";
 import { Platform } from "@lib/platform";
 import { startQRScan, stopQRScan } from "@lib/barcode-scanner";
-import useRouter from "@hooks/use-router";
 import screen from "@constants/screens";
+import { useHistory } from "react-router";
 
 const ScannerScreen: React.FC = () => {
-  const { replace } = useRouter();
+  const { replace } = useHistory();
 
-  const onQRCodeScanned = (data: string) => {
-    alert(data);
-
-    replace(screen.requestPayment.path);
+  const onQRCodeScanned = async (data: string) => {
+    replace({
+      pathname: screen.requestPayment.path,
+      state: { qrData: data },
+    });
   };
 
   const startScan = async () => {
