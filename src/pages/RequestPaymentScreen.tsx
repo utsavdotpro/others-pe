@@ -88,7 +88,7 @@ const RequestPaymentScreen: React.FC = () => {
         {/* <Text block>Banking name: Utsav Barnwal</Text> */}
 
         <MoneyInput
-          className="mt-6 mb-4"
+          className="mt-4"
           defaultValue={valueRef.current.amount}
           onValueChange={(value) => (valueRef.current.amount = value)}
         />
