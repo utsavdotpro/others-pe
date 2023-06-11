@@ -6,18 +6,16 @@ import React from "react";
 type TabItemProps = {
   Icon: Component;
   label: string;
+  onClick?: () => void;
 };
 
 type Props = {
   items: TabItemProps[];
 };
 
-const TabItem: Component<{ Icon: Component; label: string }> = ({
-  Icon,
-  label,
-}) => {
+const TabItem: Component<TabItemProps> = ({ Icon, label, onClick }) => {
   return (
-    <div className="text-center text-white">
+    <div className="text-center text-white" onClick={onClick}>
       <Icon className="w-5 h-5 mx-auto" />
 
       <Text className="text-xs text-white">{label}</Text>

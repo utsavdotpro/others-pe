@@ -5,7 +5,7 @@ import Screen from "@layouts/Screen";
 import { BoltIcon, PhotoIcon } from "@heroicons/react/24/outline";
 import { useEffect } from "react";
 import { Platform } from "@lib/platform";
-import { startQRScan, stopQRScan } from "@lib/barcode-scanner";
+import { startQRScan, stopQRScan, toggleFlash } from "@lib/barcode-scanner";
 import screen from "@constants/screens";
 import { useHistory } from "react-router";
 
@@ -52,7 +52,7 @@ const ScannerScreen: React.FC = () => {
           className="mb-8"
           items={[
             { label: "Upload QR", Icon: PhotoIcon },
-            { label: "Flash On", Icon: BoltIcon },
+            { label: "Flash On", Icon: BoltIcon, onClick: () => toggleFlash() },
           ]}
         />
       </Container>

@@ -42,3 +42,7 @@ export const stopQRScan = async () => {
   showBackgroundForCamera();
   await BarcodeScanner.stopScan();
 };
+
+export const toggleFlash = async () => {
+  await BarcodeScanner.toggleTorch();
+};
