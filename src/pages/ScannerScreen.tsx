@@ -51,8 +51,12 @@ const ScannerScreen: React.FC = () => {
         <TabBar
           className="mb-8"
           items={[
-            { label: "Upload QR", Icon: PhotoIcon },
-            { label: "Flash On", Icon: BoltIcon, onClick: () => toggleFlash() },
+            // { label: "Upload QR", Icon: PhotoIcon },
+            {
+              label: "Flash",
+              Icon: BoltIcon,
+              onClick: () => toggleFlash(),
+            },
           ]}
         />
       </Container>
