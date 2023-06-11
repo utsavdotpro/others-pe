@@ -15,7 +15,6 @@
   --ion-font-family: "Poppins";
 }
 
-
 /* Transparent BG on scanner screen */
 body.scanner-active {
   --background: transparent;
