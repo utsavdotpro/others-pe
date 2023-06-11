@@ -59,7 +59,7 @@ const RequestPaymentScreen: React.FC = () => {
       title: "Share payment link",
       text: `Hey, can you please clear this payment of *₹${upi.am}* for me?\n\n`,
       url: generateUPILink(upi),
-      dialogTitle: "Share with buddies",
+      dialogTitle: "Share payment link",
     });
   };
 
