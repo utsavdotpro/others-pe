@@ -10,6 +10,12 @@
   }
 }
 
+/* Changing app font */
+:root {
+  --ion-font-family: "Poppins";
+}
+
+/* Transparent BG on scanner screen */
 body.scanner-active {
   --background: transparent;
   --ion-background-color: transparent;

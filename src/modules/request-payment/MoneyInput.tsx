@@ -36,7 +36,7 @@ const MoneyInput: Component<Props> = ({
       <Text>₹</Text>
 
       <input
-        className="inline h-16 max-w-full text-6xl bg-transparent outline-none text-start"
+        className="inline max-w-full text-6xl bg-transparent outline-none text-start"
         style={{ width: `${value.length + 0.5}ch` }}
         type="number"
         value={value}
