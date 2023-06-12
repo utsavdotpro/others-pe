@@ -2,7 +2,7 @@ import Toolbar from "@components/Toolbar";
 import TabBar from "@components/TabBar";
 import Container from "@layouts/Container";
 import Screen from "@layouts/Screen";
-import { BoltIcon, PhotoIcon } from "@heroicons/react/24/outline";
+import { BoltIcon } from "@heroicons/react/24/outline";
 import { useEffect } from "react";
 import { Platform } from "@lib/platform";
 import { startQRScan, stopQRScan, toggleFlash } from "@lib/barcode-scanner";
