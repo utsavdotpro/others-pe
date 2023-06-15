@@ -1,9 +1,9 @@
-import { UPI } from "@appTypes/.";
+import { Component, UPI } from "@appTypes/.";
 import { Share } from "@capacitor/share";
 import Toolbar from "@components/Toolbar";
 import Input from "@elements/Input";
 import Text from "@elements/Text";
-import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import { CheckIcon } from "@heroicons/react/24/solid";
 import useRouter from "@hooks/use-router";
 import Container from "@layouts/Container";
 import Screen from "@layouts/Screen";
@@ -12,6 +12,16 @@ import MoneyInput from "@modules/request-payment/MoneyInput";
 import RequestSheet from "@modules/request-payment/RequestSheet";
 import { generateShareText } from "@utils/.";
 import { useMemo, useRef } from "react";
+import Image from "@elements/Image";
+import cx from "clsx";
+
+const UserImage: Component<{ upiId: string }> = ({ className, upiId }) => (
+  <Image
+    src={`https://api.dicebear.com/6.x/initials/svg?seed=${upiId}&radius=50&fontFamily=Tahoma&fontSize=40&fontWeight=500`}
+    alt="recipient"
+    className={cx("w-20 h-20 rounded-full", className)}
+  />
+);
 
 const RequestPaymentScreen: React.FC = () => {
   const { replace } = useRouter();
@@ -74,11 +84,12 @@ const RequestPaymentScreen: React.FC = () => {
       </div>
 
       <Container className="h-full text-center bg-primary-500">
+        <UserImage upiId={vpa} className="mx-auto mb-1.5" />
+
         <div className="flex items-center justify-center">
           {payeeName && <Text className="text-xl">{payeeName}</Text>}
 
-          {/* TODO: replace icon with Figma */}
-          <CheckCircleIcon className="w-6 h-6 text-white ms-1.5" />
+          <CheckIcon className="w-5 h-5 text-black ms-1.5 bg-white rounded-full p-1" />
         </div>
 
         <Text className="mt-1.5" block>
