@@ -7,38 +7,36 @@ import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import useRouter from "@hooks/use-router";
 import Container from "@layouts/Container";
 import Screen from "@layouts/Screen";
+import LocalStorage, { StorageItem } from "@lib/localStorage";
 import MoneyInput from "@modules/request-payment/MoneyInput";
 import RequestSheet from "@modules/request-payment/RequestSheet";
 import { generateUPILink } from "@utils/index";
 import { useMemo, useRef } from "react";
-import { useLocation } from "react-router";
-
-type LocationProps = {
-  qrData: string;
-};
 
 const RequestPaymentScreen: React.FC = () => {
   const { replace } = useRouter();
-  const location = useLocation<LocationProps>();
+
   const valueRef = useRef({
     amount: "0",
     note: "",
   });
 
   const upiData = useMemo(() => {
-    if (!location.state?.qrData) return null;
+    const data = LocalStorage.getItem(StorageItem.scannedQRData);
+
+    if (!data) return null;
 
     const obj = Object.fromEntries(
-      new URLSearchParams(location.state.qrData.replace("upi://pay?", ""))
+      new URLSearchParams(data.replace("upi://pay?", ""))
     ) as unknown as UPI;
 
     if (obj.tn) valueRef.current.note = obj.tn;
     if (obj.am) valueRef.current.amount = obj.am.toString();
 
     return obj;
-  }, [location.state?.qrData]);
+  }, []);
 
-  if (!location.state?.qrData || !upiData) {
+  if (!upiData) {
     replace("/");
     return null;
   }
