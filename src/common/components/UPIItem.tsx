@@ -8,6 +8,7 @@ type Props = {
   upiId: string;
 };
 
+// NOTE: Unused component
 const UPIItem: Component<Props> = ({ upiId }) => {
   return (
     <ListItem

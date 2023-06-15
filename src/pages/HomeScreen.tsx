@@ -1,23 +1,21 @@
-import { UserPlusIcon, QrCodeIcon } from "@heroicons/react/24/outline";
+import { QrCodeIcon } from "@heroicons/react/24/outline";
 
 import Header from "@components/Header";
 import Button from "@elements/Button";
 import Screen from "@layouts/Screen";
 import Section from "@layouts/Section";
 import Container from "@layouts/Container";
-import type { Component } from "@appTypes/.";
-import UPIItem from "@components/UPIItem";
 import HistoryItem from "@components/HistoryItem";
 import useRouter from "@hooks/use-router";
 import { useEffect } from "react";
 import LocalStorage, { StorageItem } from "@lib/localStorage";
 import screen from "@constants/screens";
 
-const mockUPIList = [
-  { upiId: "sannan@ybl" },
-  { upiId: "priya@ybl" },
-  { upiId: "raj@ybl" },
-];
+// const mockUPIList = [
+//   { upiId: "sannan@ybl" },
+//   { upiId: "priya@ybl" },
+//   { upiId: "raj@ybl" },
+// ];
 
 const mockHistoryList = [
   { label: "Sannan", time: "Today, 11:30am", amount: 500000 },
@@ -25,20 +23,20 @@ const mockHistoryList = [
   { label: "Raj", time: "March 20, 10:25pm", amount: 50000 },
 ];
 
-const EmptyUPIList: Component = () => (
-  <>
-    <Section.EmptyText className="mb-10 mt-14">
-      *Cricket noises*
-      <br />
-      <br />
-      Need help making some friends?
-    </Section.EmptyText>
+// const EmptyUPIList: Component = () => (
+//   <>
+//     <Section.EmptyText className="mb-10 mt-14">
+//       *Cricket noises*
+//       <br />
+//       <br />
+//       Need help making some friends?
+//     </Section.EmptyText>
 
-    <Button.Primary Icon={UserPlusIcon} className="!py-3 !px-7 mx-auto">
-      Add a UPI ID
-    </Button.Primary>
-  </>
-);
+//     <Button.Primary Icon={UserPlusIcon} className="!py-3 !px-7 mx-auto">
+//       Add a UPI ID
+//     </Button.Primary>
+//   </>
+// );
 
 const HomeScreen: React.FC = () => {
   const { push, replace } = useRouter();
@@ -57,7 +55,7 @@ const HomeScreen: React.FC = () => {
     >
       <Header title="Welcome to OthersPe!" subtitle="Stuck? Let others pay!" />
 
-      <Section
+      {/* <Section
         title="People"
         className="mb-8"
         action={{ text: "See All", fn: () => push(screen.people.path) }}
@@ -71,7 +69,7 @@ const HomeScreen: React.FC = () => {
             ))}
           </div>
         )}
-      </Section>
+      </Section> */}
 
       <Section
         title="History"
