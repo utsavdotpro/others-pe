@@ -10,7 +10,7 @@ import UPIItem from "@components/UPIItem";
 import HistoryItem from "@components/HistoryItem";
 import useRouter from "@hooks/use-router";
 import { useEffect } from "react";
-import LocalStorage, { StorageItem } from "@lib/storage";
+import LocalStorage, { StorageItem } from "@lib/localStorage";
 import screen from "@constants/screens";
 
 const mockUPIList = [

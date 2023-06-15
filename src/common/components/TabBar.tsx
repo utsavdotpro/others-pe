@@ -15,7 +15,7 @@ type Props = {
 
 const TabItem: Component<TabItemProps> = ({ Icon, label, onClick }) => {
   return (
-    <div className="text-center text-white" onClick={onClick}>
+    <div className="text-center text-white cursor-pointer" onClick={onClick}>
       <Icon className="w-5 h-5 mx-auto" />
 
       <Text className="text-xs text-white">{label}</Text>

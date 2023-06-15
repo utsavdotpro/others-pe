@@ -1,4 +1,5 @@
 import { UPI } from "@appTypes/.";
+import { Share } from "@capacitor/share";
 import Toolbar from "@components/Toolbar";
 import Input from "@elements/Input";
 import Text from "@elements/Text";
@@ -6,40 +7,39 @@ import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import useRouter from "@hooks/use-router";
 import Container from "@layouts/Container";
 import Screen from "@layouts/Screen";
+import LocalStorage, { StorageItem } from "@lib/localStorage";
 import MoneyInput from "@modules/request-payment/MoneyInput";
 import RequestSheet from "@modules/request-payment/RequestSheet";
-import { useMemo, useRef } from "react";
-import { useLocation } from "react-router";
-import { Share } from "@capacitor/share";
 import { generateUPILink } from "@utils/index";
-
-type LocationProps = {
-  qrData: string;
-};
+import { useMemo, useRef } from "react";
 
 const RequestPaymentScreen: React.FC = () => {
   const { replace } = useRouter();
-  const location = useLocation<LocationProps>();
+
   const valueRef = useRef({
     amount: "0",
     note: "",
   });
 
-  if (!location.state?.qrData) {
-    replace("/");
-    return null;
-  }
-
   const upiData = useMemo(() => {
+    const data = LocalStorage.getItem(StorageItem.scannedQRData);
+
+    if (!data) return null;
+
     const obj = Object.fromEntries(
-      new URLSearchParams(location.state.qrData.replace("upi://pay?", ""))
+      new URLSearchParams(data.replace("upi://pay?", ""))
     ) as unknown as UPI;
 
     if (obj.tn) valueRef.current.note = obj.tn;
     if (obj.am) valueRef.current.amount = obj.am.toString();
 
     return obj;
-  }, [location.state.qrData]);
+  }, []);
+
+  if (!upiData) {
+    replace("/");
+    return null;
+  }
 
   const { pn: payeeName, pa: vpa } = upiData;
 

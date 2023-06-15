@@ -2,21 +2,20 @@ import Toolbar from "@components/Toolbar";
 import TabBar from "@components/TabBar";
 import Container from "@layouts/Container";
 import Screen from "@layouts/Screen";
-import { BoltIcon, PhotoIcon } from "@heroicons/react/24/outline";
+import { BoltIcon } from "@heroicons/react/24/outline";
 import { useEffect } from "react";
 import { Platform } from "@lib/platform";
 import { startQRScan, stopQRScan, toggleFlash } from "@lib/barcode-scanner";
 import screen from "@constants/screens";
-import { useHistory } from "react-router";
+import LocalStorage, { StorageItem } from "@lib/localStorage";
+import useRouter from "@hooks/use-router";
 
 const ScannerScreen: React.FC = () => {
-  const { push } = useHistory();
+  const { replace } = useRouter();
 
-  const onQRCodeScanned = async (data: string) => {
-    push({
-      pathname: screen.requestPayment.path,
-      state: { qrData: data },
-    });
+  const onQRCodeScanned = (data: string) => {
+    LocalStorage.setItem(StorageItem.scannedQRData, data);
+    replace(screen.requestPayment.path);
   };
 
   const startScan = async () => {

@@ -1,5 +1,6 @@
 export enum StorageItem {
   isOnboardingComplete = "isOnboardingComplete",
+  scannedQRData = "scannedQRData",
 }
 
 class LocalStorage {
