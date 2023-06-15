@@ -8,7 +8,7 @@ import Container from "@layouts/Container";
 import HistoryItem from "@components/HistoryItem";
 import useRouter from "@hooks/use-router";
 import { useEffect } from "react";
-import LocalStorage, { StorageItem } from "@lib/localStorage";
+import LocalStorage, { StorageItem } from "@lib/local-storage";
 import screen from "@constants/screens";
 
 // const mockUPIList = [

@@ -7,7 +7,7 @@ import { CheckIcon } from "@heroicons/react/24/solid";
 import useRouter from "@hooks/use-router";
 import Container from "@layouts/Container";
 import Screen from "@layouts/Screen";
-import LocalStorage, { StorageItem } from "@lib/localStorage";
+import LocalStorage, { StorageItem } from "@lib/local-storage";
 import MoneyInput from "@modules/request-payment/MoneyInput";
 import RequestSheet from "@modules/request-payment/RequestSheet";
 import { generateShareText } from "@utils/.";
