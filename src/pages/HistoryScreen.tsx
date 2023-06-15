@@ -8,7 +8,10 @@ import { useMemo } from "react";
 
 const HistoryScreen: React.FC = () => {
   const payments = useMemo<PaymentHistory[]>(
-    () => LocalStorage.getArray<PaymentHistory>(StorageItem.paymentHistory),
+    () =>
+      LocalStorage.getArray<PaymentHistory>(
+        StorageItem.paymentHistory
+      ).reverse(),
     []
   );
 
