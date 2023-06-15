@@ -9,6 +9,7 @@ const mockUPIList = [
   { upiId: "raj@ybl" },
 ];
 
+// NOTE: Unused screen
 const PeopleScreen: React.FC = () => {
   return (
     <Screen title="People">

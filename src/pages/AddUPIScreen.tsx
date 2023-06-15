@@ -16,6 +16,7 @@ const validateDebounce = debounce(
   200
 );
 
+// NOTE: Unused screen
 const AddUPIScreen: React.FC = () => {
   const { replace } = useRouter();
 
