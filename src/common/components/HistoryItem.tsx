@@ -1,16 +1,11 @@
 import { Component } from "@appTypes/.";
+import { PaymentHistory } from "@appTypes/payment-history";
 import Text from "@elements/Text";
-import { CurrencyRupeeIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { CurrencyRupeeIcon } from "@heroicons/react/24/outline";
 import ListItem from "@layouts/ListItem";
 import { formatAmount } from "@utils/.";
 
-type Props = {
-  label: string;
-  time: string;
-  amount: number;
-};
-
-const HistoryItem: Component<Props> = ({ label, time, amount }) => {
+const HistoryItem: Component<PaymentHistory> = ({ vpa, timestamp, amount }) => {
   return (
     <ListItem
       Icon={CurrencyRupeeIcon}
@@ -18,11 +13,14 @@ const HistoryItem: Component<Props> = ({ label, time, amount }) => {
       className="font-medium"
     >
       <Text className="text-xs" block>
-        {label}
+        {vpa}
       </Text>
 
       <Text className="text-gray-500 text-xxs" block>
-        {time}
+        {new Date(timestamp).toLocaleString("en-IN", {
+          dateStyle: "full",
+          timeStyle: "short",
+        })}
       </Text>
     </ListItem>
   );
