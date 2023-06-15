@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { Platform } from "@lib/platform";
 import { startQRScan, stopQRScan, toggleFlash } from "@lib/barcode-scanner";
 import screen from "@constants/screens";
-import LocalStorage, { StorageItem } from "@lib/localStorage";
+import LocalStorage, { StorageItem } from "@lib/local-storage";
 import useRouter from "@hooks/use-router";
 
 const ScannerScreen: React.FC = () => {

@@ -4,7 +4,7 @@ import Text from "@elements/Text";
 import Input from "@elements/Input";
 import Container from "@layouts/Container";
 import Screen from "@layouts/Screen";
-import LocalStorage, { StorageItem } from "@lib/localStorage";
+import LocalStorage, { StorageItem } from "@lib/local-storage";
 import { debounce, validateUPIId } from "@utils/index";
 import { useRef, useState } from "react";
 import useRouter from "@hooks/use-router";
