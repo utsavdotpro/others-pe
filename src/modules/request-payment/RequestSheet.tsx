@@ -1,58 +1,50 @@
 import { Component } from "@appTypes/.";
-import screen from "@constants/screens";
 import Button from "@elements/Button";
-import Text from "@elements/Text";
-import RadioGroup from "@elements/form/RadioGroup";
-import { ChevronDownIcon } from "@heroicons/react/24/solid";
-import useRouter from "@hooks/use-router";
 import Container from "@layouts/Container";
 import cx from "clsx";
-import { useState } from "react";
 
-const mockUPIList = [
-  { upiId: "sannan@ybl" },
-  { upiId: "priya@ybl" },
-  { upiId: "raj@ybl" },
-];
+// const mockUPIList = [
+//   { upiId: "sannan@ybl" },
+//   { upiId: "priya@ybl" },
+//   { upiId: "raj@ybl" },
+// ];
 
 type Props = {
   onRequestPayment: () => void;
 };
 
-const UPISelector: Component<{
-  onChange?: (value: string) => void;
-  defaultValue?: string;
-}> = ({ className, onChange, defaultValue }) => {
-  return (
-    <div className={cx("", className)}>
-      <RadioGroup
-        name="selectedUPI"
-        items={mockUPIList.map(({ upiId }) => ({ value: upiId, label: upiId }))}
-        {...{ defaultValue, onChange }}
-      />
-    </div>
-  );
-};
+// const UPISelector: Component<{
+//   onChange?: (value: string) => void;
+//   defaultValue?: string;
+// }> = ({ className, onChange, defaultValue }) => {
+//   return (
+//     <div className={cx("", className)}>
+//       <RadioGroup
+//         name="selectedUPI"
+//         items={mockUPIList.map(({ upiId }) => ({ value: upiId, label: upiId }))}
+//         {...{ defaultValue, onChange }}
+//       />
+//     </div>
+//   );
+// };
 
 const RequestSheet: Component<Props> = ({ className, onRequestPayment }) => {
-  const { replace } = useRouter();
+  // const [selectedUPI, setSelectedUPI] = useState(mockUPIList[0]);
+  // const [selectionMode, setSelectionMode] = useState(false);
 
-  const [selectedUPI, setSelectedUPI] = useState(mockUPIList[0]);
-  const [selectionMode, setSelectionMode] = useState(false);
-
-  const handleUPIChange = (value: string) => {
-    setSelectedUPI(mockUPIList.find((upi) => upi.upiId === value)!);
-    setSelectionMode(false);
-  };
+  // const handleUPIChange = (value: string) => {
+  //   setSelectedUPI(mockUPIList.find((upi) => upi.upiId === value)!);
+  //   setSelectionMode(false);
+  // };
 
   return (
     <Container
       className={cx("bg-white w-full py-4 pb-8 rounded-t-[20px]", className)}
       widthFullScreen
     >
-      <Text className="text-xl font-semibold">Request</Text>
+      {/* <Text className="text-xl font-semibold">Request</Text> */}
 
-      {!selectionMode ? (
+      {/* {!selectionMode ? (
         <div className="flex items-center justify-between mt-3 mb-5">
           <Text>
             From{" "}
@@ -75,7 +67,7 @@ const RequestSheet: Component<Props> = ({ className, onRequestPayment }) => {
           onChange={handleUPIChange}
           defaultValue={selectedUPI.upiId}
         />
-      )}
+      )} */}
 
       <Button onClick={onRequestPayment} className="w-full">
         Request Payment
