@@ -1,4 +1,5 @@
 import { UPI } from "@appTypes/.";
+import { Share } from "@capacitor/share";
 import Toolbar from "@components/Toolbar";
 import Input from "@elements/Input";
 import Text from "@elements/Text";
@@ -8,10 +9,9 @@ import Container from "@layouts/Container";
 import Screen from "@layouts/Screen";
 import MoneyInput from "@modules/request-payment/MoneyInput";
 import RequestSheet from "@modules/request-payment/RequestSheet";
+import { generateUPILink } from "@utils/index";
 import { useMemo, useRef } from "react";
 import { useLocation } from "react-router";
-import { Share } from "@capacitor/share";
-import { generateUPILink } from "@utils/index";
 
 type LocationProps = {
   qrData: string;
@@ -25,12 +25,9 @@ const RequestPaymentScreen: React.FC = () => {
     note: "",
   });
 
-  if (!location.state?.qrData) {
-    replace("/");
-    return null;
-  }
-
   const upiData = useMemo(() => {
+    if (!location.state?.qrData) return null;
+
     const obj = Object.fromEntries(
       new URLSearchParams(location.state.qrData.replace("upi://pay?", ""))
     ) as unknown as UPI;
@@ -39,7 +36,12 @@ const RequestPaymentScreen: React.FC = () => {
     if (obj.am) valueRef.current.amount = obj.am.toString();
 
     return obj;
-  }, [location.state.qrData]);
+  }, [location.state?.qrData]);
+
+  if (!location.state?.qrData || !upiData) {
+    replace("/");
+    return null;
+  }
 
   const { pn: payeeName, pa: vpa } = upiData;
 
