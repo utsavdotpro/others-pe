@@ -10,7 +10,7 @@ import Screen from "@layouts/Screen";
 import LocalStorage, { StorageItem } from "@lib/localStorage";
 import MoneyInput from "@modules/request-payment/MoneyInput";
 import RequestSheet from "@modules/request-payment/RequestSheet";
-import { generateUPILink } from "@utils/index";
+import { generateShareText } from "@utils/.";
 import { useMemo, useRef } from "react";
 
 const RequestPaymentScreen: React.FC = () => {
@@ -57,8 +57,7 @@ const RequestPaymentScreen: React.FC = () => {
 
     await Share.share({
       title: "Share payment link",
-      text: `Hey, can you please clear this payment of *₹${upi.am}* for me?\n\n`,
-      url: generateUPILink(upi),
+      text: generateShareText(upi),
       dialogTitle: "Share payment link",
     });
   };

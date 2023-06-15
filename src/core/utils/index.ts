@@ -29,3 +29,9 @@ export const formatAmount = (amount: number) => {
 export const generateUPILink = (upi: UPI) => {
   return `upi://pay?pa=${upi.pa}&pn=${upi.pn}&am=${upi.am}&tn=${upi.tn}`;
 };
+
+export const generateShareText = (upi: UPI) =>
+  `Hey, can you please clear this payment of *₹${upi.am}* for me?\n
+${generateUPILink(upi)}\n
+Click the link and pay using any UPI app.\n
+- OthersPe`;
