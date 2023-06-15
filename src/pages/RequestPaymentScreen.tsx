@@ -14,6 +14,7 @@ import { generateShareText } from "@utils/.";
 import { useMemo, useRef } from "react";
 import Image from "@elements/Image";
 import cx from "clsx";
+import { PaymentHistory } from "@appTypes/payment-history";
 
 const UserImage: Component<{ upiId: string }> = ({ className, upiId }) => (
   <Image
@@ -53,6 +54,15 @@ const RequestPaymentScreen: React.FC = () => {
 
   const { pn: payeeName, pa: vpa } = upiData;
 
+  const savePaymentHistory = (upi: UPI) => {
+    LocalStorage.pushItem<PaymentHistory>(StorageItem.paymentHistory, {
+      vpa: upi.pa,
+      amount: upi.am,
+      note: upi.tn,
+      timestamp: new Date().toISOString(),
+    });
+  };
+
   const onRequestPayment = async () => {
     if (!valueRef.current.amount || valueRef.current.amount === "0") {
       alert("Please enter an amount");
@@ -64,6 +74,8 @@ const RequestPaymentScreen: React.FC = () => {
       am: Number(valueRef.current.amount),
       tn: valueRef.current.note,
     };
+
+    savePaymentHistory(upi);
 
     await Share.share({
       title: "Share payment link",

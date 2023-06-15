@@ -1,6 +1,7 @@
 export enum StorageItem {
   isOnboardingComplete = "isOnboardingComplete",
   scannedQRData = "scannedQRData",
+  paymentHistory = "paymentHistory",
 }
 
 class LocalStorage {
@@ -16,14 +17,14 @@ class LocalStorage {
     localStorage.removeItem(key);
   }
 
-  static pushItem(key: StorageItem, value: string) {
-    const items = this.getArray(key);
+  static pushItem<T = string>(key: StorageItem, value: T) {
+    const items = this.getArray<T>(key);
 
     items.push(value);
     this.setItem(key, JSON.stringify(items));
   }
 
-  static getArray(key: StorageItem) {
+  static getArray<T = string>(key: StorageItem): T[] {
     const items = this.getItem(key) || "[]";
     return JSON.parse(items);
   }
