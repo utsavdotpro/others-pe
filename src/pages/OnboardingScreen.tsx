@@ -4,9 +4,15 @@ import Text from "@elements/Text";
 import useRouter from "@hooks/use-router";
 import Container from "@layouts/Container";
 import Screen from "@layouts/Screen";
+import LocalStorage, { StorageItem } from "@lib/localStorage";
 
 const OnboardingScreen: React.FC = () => {
   const { replace } = useRouter();
+
+  const proceed = () => {
+    LocalStorage.setItem(StorageItem.isOnboardingComplete, "true");
+    replace(screen.home.path);
+  };
 
   return (
     <Screen title="Onboarding" safeArea={false} className="h-full">
@@ -21,10 +27,7 @@ const OnboardingScreen: React.FC = () => {
           friends & family
         </Text>
 
-        <Button
-          onClick={() => replace(screen.addUPI.path)}
-          className="mt-10 mb-8"
-        >
+        <Button onClick={proceed} className="mt-10 mb-8">
           Get Started
         </Button>
       </Container>
