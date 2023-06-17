@@ -10,7 +10,7 @@ import Screen from "@layouts/Screen";
 import LocalStorage, { StorageItem } from "@lib/local-storage";
 import MoneyInput from "@modules/request-payment/MoneyInput";
 import RequestSheet from "@modules/request-payment/RequestSheet";
-import { generateShareText } from "@utils/.";
+import { debounce, generateShareText } from "@utils/.";
 import { useEffect, useMemo, useRef } from "react";
 import Image from "@elements/Image";
 import cx from "clsx";
@@ -24,6 +24,14 @@ const UserImage: Component<{ upiId: string }> = ({ className, upiId }) => (
     className={cx("w-20 h-20 rounded-full", className)}
   />
 );
+
+const trackAmountChange = debounce((value: string) => {
+  new AnalyticsEvent("AmountInput").add("value", value).trackChange();
+}, 300);
+
+const trackNoteChange = debounce((value: string) => {
+  new AnalyticsEvent("NoteInput").add("value", value).trackChange();
+}, 300);
 
 const RequestPaymentScreen: React.FC = () => {
   const { replace } = useRouter();
@@ -70,9 +78,17 @@ const RequestPaymentScreen: React.FC = () => {
 
   const onRequestPayment = async () => {
     if (!valueRef.current.amount || valueRef.current.amount === "0") {
+      new AnalyticsEvent("RequestPaymentButton")
+        .add("processed", false)
+        .trackClick();
+
       alert("Please enter an amount");
       return;
     }
+
+    new AnalyticsEvent("RequestPaymentButton")
+      .add("processed", true)
+      .trackClick();
 
     const upi: UPI = {
       ...upiData,
@@ -117,12 +133,18 @@ const RequestPaymentScreen: React.FC = () => {
         <MoneyInput
           className="mt-4"
           defaultValue={valueRef.current.amount}
-          onValueChange={(value) => (valueRef.current.amount = value)}
+          onValueChange={(value) => {
+            trackAmountChange(value);
+            valueRef.current.amount = value;
+          }}
         />
 
         <Input
           defaultValue={valueRef.current.note}
-          onValueChange={(value) => (valueRef.current.note = value)}
+          onValueChange={(value) => {
+            trackNoteChange(value);
+            valueRef.current.note = value;
+          }}
           className="bg-white border-none !rounded-2xl text-xs inline-block mx-auto"
           inputClassName="min-w-[10ch] text-center"
           placeholder="Add a note"
