@@ -27,7 +27,9 @@ export const formatAmount = (amount: number) => {
 };
 
 export const generateUPILink = (upi: UPI) => {
-  return `upi://pay?pa=${upi.pa}&pn=${upi.pn}&am=${upi.am}&tn=${upi.tn}`;
+  return `upi://pay?pa=${upi.pa}&pn=${encodeURI(upi.pn || "")}&am=${
+    upi.am
+  }&tn=${encodeURI(upi.tn || "")}`;
 };
 
 export const generateShareText = (upi: UPI) =>
