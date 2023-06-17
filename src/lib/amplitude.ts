@@ -1,6 +1,7 @@
 import { track } from "@amplitude/analytics-browser";
 
 import { getPlatform } from "./platform";
+import { isDevEnvironment } from "@utils/.";
 
 export class AnalyticsEvent {
   static Launched = "Launched";
@@ -33,10 +34,10 @@ export class AnalyticsEvent {
 
 const trackEvent = ({ key, properties }: AnalyticsEvent) => {
   // TODO: enable this later, currently it's not working for iOS production builds
-  // if (isDevEnvironment()) {
-  //   console.log("trackEvent:", { key, properties });
-  //   return;
-  // }
+  if (isDevEnvironment()) {
+    console.log("trackEvent:", { key, properties });
+    // return;
+  }
 
   track(key, properties || {});
 };
