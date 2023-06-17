@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { Redirect, Route } from "react-router-dom";
 
 import "./App.css";
+
 // Core CSS required for Ionic components to work properly
 import "@ionic/react/css/core.css";
 
@@ -13,7 +14,7 @@ setupIonicReact();
 
 const App: React.FC = () => {
   useEffect(() => {
-    amplitude.init(process.env.REACT_APP_AMPLITUDE_API_KEY!);
+    amplitude.init(import.meta.env.VITE_AMPLITUDE_API_KEY);
   }, []);
 
   return (
