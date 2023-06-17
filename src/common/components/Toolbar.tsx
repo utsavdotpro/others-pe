@@ -28,7 +28,7 @@ const Toolbar: Component<Props> = ({
   return (
     <Container
       className={cx(
-        "flex items-center",
+        "flex items-center relative",
         topSpacing && (Platform.isWeb ? "pt-9" : "pt-4"),
         { "pb-6": bottomSpacing },
         className
@@ -36,7 +36,7 @@ const Toolbar: Component<Props> = ({
     >
       {canGoBack() && (
         <ArrowLeftIcon
-          className="w-4 h-4 mr-4 font-bold cursor-pointer"
+          className="absolute left-0 w-5 h-5 ml-5 font-bold cursor-pointer"
           onClick={() => {
             new AnalyticsEvent("ToolbarBackButton").trackClick();
             goBack();
