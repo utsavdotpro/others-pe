@@ -2,6 +2,8 @@ import Toolbar from "@components/Toolbar";
 import UPIItem from "@components/UPIItem";
 import Container from "@layouts/Container";
 import Screen from "@layouts/Screen";
+import { AnalyticsEvent } from "@lib/amplitude";
+import { useEffect } from "react";
 
 const mockUPIList = [
   { upiId: "sannan@ybl" },
@@ -11,6 +13,10 @@ const mockUPIList = [
 
 // NOTE: Unused screen
 const PeopleScreen: React.FC = () => {
+  useEffect(() => {
+    new AnalyticsEvent(AnalyticsEvent.Launched).addTag("PeopleScreen").track();
+  }, []);
+
   return (
     <Screen title="People">
       <Toolbar title="People" subtitle="All your UPI Ids" />

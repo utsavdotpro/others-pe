@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import LocalStorage, { StorageItem } from "@lib/local-storage";
 import screen from "@constants/screens";
 import { PaymentHistory } from "@appTypes/payment-history";
+import { AnalyticsEvent } from "@lib/amplitude";
 
 // const mockUPIList = [
 //   { upiId: "sannan@ybl" },
@@ -45,6 +46,8 @@ const HomeScreen: React.FC = () => {
   useEffect(() => {
     if (!LocalStorage.getBoolean(StorageItem.isOnboardingComplete))
       replace("/onboarding");
+    else
+      new AnalyticsEvent(AnalyticsEvent.Launched).addTag("HomeScreen").track();
   }, []);
 
   return (

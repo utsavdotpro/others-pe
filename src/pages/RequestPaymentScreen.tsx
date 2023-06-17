@@ -11,10 +11,11 @@ import LocalStorage, { StorageItem } from "@lib/local-storage";
 import MoneyInput from "@modules/request-payment/MoneyInput";
 import RequestSheet from "@modules/request-payment/RequestSheet";
 import { generateShareText } from "@utils/.";
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import Image from "@elements/Image";
 import cx from "clsx";
 import { PaymentHistory } from "@appTypes/payment-history";
+import { AnalyticsEvent } from "@lib/amplitude";
 
 const UserImage: Component<{ upiId: string }> = ({ className, upiId }) => (
   <Image
@@ -45,6 +46,12 @@ const RequestPaymentScreen: React.FC = () => {
     if (obj.am) valueRef.current.amount = obj.am.toString();
 
     return obj;
+  }, []);
+
+  useEffect(() => {
+    new AnalyticsEvent(AnalyticsEvent.Launched)
+      .addTag("RequestPaymentScreen")
+      .track();
   }, []);
 
   if (!upiData) {

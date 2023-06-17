@@ -9,6 +9,7 @@ import { startQRScan, stopQRScan, toggleFlash } from "@lib/barcode-scanner";
 import screen from "@constants/screens";
 import LocalStorage, { StorageItem } from "@lib/local-storage";
 import useRouter from "@hooks/use-router";
+import { AnalyticsEvent } from "@lib/amplitude";
 
 const ScannerScreen: React.FC = () => {
   const { replace } = useRouter();
@@ -24,6 +25,8 @@ const ScannerScreen: React.FC = () => {
   };
 
   useEffect(() => {
+    new AnalyticsEvent(AnalyticsEvent.Launched).addTag("HistoryScreen").track();
+
     if (!Platform.isDesktop) startScan();
 
     return () => {

@@ -6,9 +6,10 @@ import Container from "@layouts/Container";
 import Screen from "@layouts/Screen";
 import LocalStorage, { StorageItem } from "@lib/local-storage";
 import { debounce, validateUPIId } from "@utils/index";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useRouter from "@hooks/use-router";
 import screen from "@constants/screens";
+import { AnalyticsEvent } from "@lib/amplitude";
 
 const validateDebounce = debounce(
   (value: string, setErrorFn: React.Dispatch<React.SetStateAction<boolean>>) =>
@@ -28,6 +29,10 @@ const AddUPIScreen: React.FC = () => {
 
   // This is to disable the button while the user is typing the first character. The validation is debounced so the button get enabled for a split second
   const disabledWhileFirstChange = useRef(true);
+
+  useEffect(() => {
+    new AnalyticsEvent(AnalyticsEvent.Launched).addTag("AddUPIScreen").track();
+  }, []);
 
   const processUpiIdChange = ({
     target: { value },

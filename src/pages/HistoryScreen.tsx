@@ -3,8 +3,9 @@ import HistoryItem from "@components/HistoryItem";
 import Toolbar from "@components/Toolbar";
 import Container from "@layouts/Container";
 import Screen from "@layouts/Screen";
+import { AnalyticsEvent } from "@lib/amplitude";
 import LocalStorage, { StorageItem } from "@lib/local-storage";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 const HistoryScreen: React.FC = () => {
   const payments = useMemo<PaymentHistory[]>(
@@ -14,6 +15,10 @@ const HistoryScreen: React.FC = () => {
       ).reverse(),
     []
   );
+
+  useEffect(() => {
+    new AnalyticsEvent(AnalyticsEvent.Launched).addTag("HistoryScreen").track();
+  }, []);
 
   return (
     <Screen title="History">
