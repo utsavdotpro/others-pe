@@ -10,6 +10,6 @@ export interface Component<T = {}>
 export type UPI = {
   pa: string; // payment address
   pn?: string; // name
-  am: number; // amount
+  am?: number; // amount
   tn?: string; // note
 };

@@ -16,6 +16,10 @@ import Image from "@elements/Image";
 import cx from "clsx";
 import { PaymentHistory } from "@appTypes/payment-history";
 import { AnalyticsEvent } from "@lib/amplitude";
+import { convertToUPI } from "@utils/upi";
+import Section from "@layouts/Section";
+import Button from "@elements/Button";
+import { trackScanProcess } from "@lib/barcode-scanner";
 
 const UserImage: Component<{ upiId: string }> = ({ className, upiId }) => (
   <Image
@@ -48,7 +52,7 @@ const trackShareProcess = (
 };
 
 const RequestPaymentScreen: React.FC = () => {
-  const { replace } = useRouter();
+  const { goBack } = useRouter();
 
   const valueRef = useRef({
     amount: "0",
@@ -60,31 +64,29 @@ const RequestPaymentScreen: React.FC = () => {
 
     if (!data) return null;
 
-    const obj = Object.fromEntries(
-      new URLSearchParams(data.replace("upi://pay?", ""))
-    ) as unknown as UPI;
+    const upi = convertToUPI(data);
 
-    if (obj.tn) valueRef.current.note = obj.tn;
-    if (obj.am) valueRef.current.amount = obj.am.toString();
+    if (!upi) {
+      trackScanProcess("invalid_upi_qr", false);
+      return null;
+    }
 
-    return obj;
+    if (upi.tn) valueRef.current.note = upi.tn;
+    if (upi.am) valueRef.current.amount = upi.am.toString();
+
+    return upi;
   }, []);
 
   useEffect(() => {
     new AnalyticsEvent("RequestPaymentScreen").trackLaunch();
   }, []);
 
-  if (!upiData) {
-    replace("/");
-    return null;
-  }
-
-  const { pn: payeeName, pa: vpa } = upiData;
+  const { pn: payeeName, pa: vpa } = upiData || {};
 
   const savePaymentHistory = (upi: UPI) => {
     LocalStorage.pushItem<PaymentHistory>(StorageItem.paymentHistory, {
       vpa: upi.pa,
-      amount: upi.am,
+      amount: upi.am!,
       note: upi.tn,
       timestamp: new Date().toISOString(),
     });
@@ -123,7 +125,7 @@ const RequestPaymentScreen: React.FC = () => {
     }
 
     const upi: UPI = {
-      ...upiData,
+      ...upiData!,
       am: Number(valueRef.current.amount),
       tn: valueRef.current.note,
     };
@@ -148,47 +150,70 @@ const RequestPaymentScreen: React.FC = () => {
         <Toolbar />
       </div>
 
-      <Container className="h-full text-center bg-primary-500">
-        <UserImage upiId={vpa} className="mx-auto mb-1.5" />
+      {!upiData && (
+        <Container className="h-full pt-8 bg-primary-500">
+          <Section.EmptyText title="Invalid UPI QR Code">
+            Please make sure you have scanned a valid QR code for UPI. If you
+            are sure that you have scanned a valid QR code, please try again.
+          </Section.EmptyText>
 
-        <div className="flex items-center justify-center">
-          {payeeName && <Text className="text-xl">{payeeName}</Text>}
+          <Button.Primary
+            onClick={() => {
+              new AnalyticsEvent("GoBackButton").trackClick();
+              goBack();
+            }}
+            className="mx-auto mt-4"
+          >
+            Go back
+          </Button.Primary>
+        </Container>
+      )}
 
-          <CheckIcon className="w-5 h-5 text-black ms-1.5 bg-white rounded-full p-1" />
-        </div>
+      {upiData && (
+        <>
+          <Container className="h-full text-center bg-primary-500">
+            <UserImage upiId={vpa!} className="mx-auto mb-1.5" />
 
-        <Text className="mt-1.5" block>
-          {vpa}
-        </Text>
-        {/* <Text block>Banking name: Utsav Barnwal</Text> */}
+            <div className="flex items-center justify-center">
+              {payeeName && <Text className="text-xl">{payeeName}</Text>}
 
-        <MoneyInput
-          className="mt-4"
-          defaultValue={valueRef.current.amount}
-          onValueChange={(value) => {
-            trackAmountChange(value);
-            valueRef.current.amount = value;
-          }}
-        />
+              <CheckIcon className="w-5 h-5 text-black ms-1.5 bg-white rounded-full p-1" />
+            </div>
 
-        <Input
-          defaultValue={valueRef.current.note}
-          onValueChange={(value) => {
-            trackNoteChange(value);
-            valueRef.current.note = value;
-          }}
-          className="bg-white border-none !rounded-2xl text-xs inline-block mx-auto"
-          inputClassName="min-w-[10ch] text-center"
-          placeholder="Add a note"
-          errorText="Enter a correct UPI Id"
-          dynamicWidth
-        />
-      </Container>
+            <Text className="mt-1.5" block>
+              {vpa}
+            </Text>
+            {/* <Text block>Banking name: Utsav Barnwal</Text> */}
 
-      <RequestSheet
-        onRequestPayment={onRequestPayment}
-        className="fixed bottom-0 z-50"
-      />
+            <MoneyInput
+              className="mt-4"
+              defaultValue={valueRef.current.amount}
+              onValueChange={(value) => {
+                trackAmountChange(value);
+                valueRef.current.amount = value;
+              }}
+            />
+
+            <Input
+              defaultValue={valueRef.current.note}
+              onValueChange={(value) => {
+                trackNoteChange(value);
+                valueRef.current.note = value;
+              }}
+              className="bg-white border-none !rounded-2xl text-xs inline-block mx-auto"
+              inputClassName="min-w-[10ch] text-center"
+              placeholder="Add a note"
+              errorText="Enter a correct UPI Id"
+              dynamicWidth
+            />
+          </Container>
+
+          <RequestSheet
+            onRequestPayment={onRequestPayment}
+            className="fixed bottom-0 z-50"
+          />
+        </>
+      )}
     </Screen>
   );
 };

@@ -12,7 +12,7 @@ type Props = {
 };
 
 type SubComponent = {
-  EmptyText: Component;
+  EmptyText: Component<{ title?: string }>;
 };
 
 const Section: Component<Props> & SubComponent = ({
@@ -38,10 +38,23 @@ const Section: Component<Props> & SubComponent = ({
   );
 };
 
-Section.EmptyText = ({ className, children }) => {
+Section.EmptyText = ({ title, className, children }) => {
   return (
-    <div className={cx("flex items-center justify-center", className)}>
-      <Text className="text-xs text-center">{children}</Text>
+    <div
+      className={cx(
+        "flex flex-col items-center justify-center text-center",
+        className
+      )}
+    >
+      {title && (
+        <Text block className="mb-3 font-bold">
+          {title}
+        </Text>
+      )}
+
+      <Text block className="text-xs">
+        {children}
+      </Text>
     </div>
   );
 };
