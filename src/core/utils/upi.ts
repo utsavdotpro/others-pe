@@ -2,9 +2,6 @@ import { UPI } from "@appTypes/.";
 
 export const validateUPIId = (upiId: string) => {
   const upiIdRegex = /^[a-zA-Z0-9.\-_]{2,49}@[a-zA-Z._]{2,49}$/;
-
-  console.log(upiIdRegex.test(upiId));
-
   return upiIdRegex.test(upiId);
 };
 
@@ -19,7 +16,7 @@ export const convertToUPI = (rawQRData: string): UPI | undefined => {
     new URLSearchParams(rawQRData.replace("upi://pay?", ""))
   ) as unknown as UPI;
 
-  if (obj.pa) return obj;
+  if (!obj.pa) return undefined;
 
-  return undefined;
+  return obj;
 };
