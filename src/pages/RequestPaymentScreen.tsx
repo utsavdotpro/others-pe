@@ -82,7 +82,17 @@ const RequestPaymentScreen: React.FC = () => {
         .add("processed", false)
         .trackClick();
 
-      alert("Please enter an amount");
+      alert("Please enter an amount!");
+      return;
+    }
+
+    if ((await Share.canShare()).value === false) {
+      new AnalyticsEvent("RequestPaymentButton")
+        .add("processed", false)
+        .add("error", "share_not_supported")
+        .trackClick();
+
+      alert("Sorry, share is not supported on this device!");
       return;
     }
 
@@ -95,6 +105,11 @@ const RequestPaymentScreen: React.FC = () => {
       am: Number(valueRef.current.amount),
       tn: valueRef.current.note,
     };
+
+    new AnalyticsEvent("RequestPaymentButton")
+      .add("processed", true)
+      .add("amount", upi.am)
+      .trackClick();
 
     savePaymentHistory(upi);
 
