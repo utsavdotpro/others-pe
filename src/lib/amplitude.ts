@@ -1,20 +1,21 @@
 import { track } from "@amplitude/analytics-browser";
 
-import { getPlatform } from "./platform";
+import { getPlatform } from "@lib/platform";
 import { isDevEnvironment } from "@utils/.";
 
-export class AnalyticsEvent {
-  static Launched = "Launched";
-  static Clicked = "Clicked";
-  static Changed = "Changed";
+enum Event {
+  Launched = "Launched",
+  Clicked = "Clicked",
+  Changed = "Changed",
+}
 
-  key: string;
+export class AnalyticsEvent {
   properties: Record<string, any>;
 
-  constructor(key: string) {
-    this.key = key;
+  constructor(tag: string) {
     this.properties = {
       platform: getPlatform(),
+      tag,
     };
   }
 
@@ -23,21 +24,25 @@ export class AnalyticsEvent {
     return this;
   }
 
-  addTag(value: string) {
-    return this.add("tag", value);
+  trackLaunch() {
+    this.track(Event.Launched);
   }
 
-  track() {
-    trackEvent(this);
+  trackClick() {
+    this.track(Event.Clicked);
+  }
+
+  trackChange() {
+    this.track(Event.Changed);
+  }
+
+  private track(key: string) {
+    // TODO: enable this later, currently it's not working for iOS production builds
+    if (isDevEnvironment()) {
+      console.log(key, this);
+      // return;
+    }
+
+    track(key, this.properties);
   }
 }
-
-const trackEvent = ({ key, properties }: AnalyticsEvent) => {
-  // TODO: enable this later, currently it's not working for iOS production builds
-  if (isDevEnvironment()) {
-    console.log("trackEvent:", { key, properties });
-    // return;
-  }
-
-  track(key, properties || {});
-};

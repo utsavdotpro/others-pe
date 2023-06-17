@@ -27,9 +27,7 @@ const UserImage: Component<{ upiId: string }> = ({ className, upiId }) => (
 // NOTE: Unused screen
 const PaymentCompleteScreen: React.FC = () => {
   useEffect(() => {
-    new AnalyticsEvent(AnalyticsEvent.Launched)
-      .addTag("PaymentCompleteScreen")
-      .track();
+    new AnalyticsEvent("PaymentCompleteScreen").trackLaunch();
   }, []);
   
   return (

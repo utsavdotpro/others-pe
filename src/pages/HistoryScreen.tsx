@@ -17,7 +17,7 @@ const HistoryScreen: React.FC = () => {
   );
 
   useEffect(() => {
-    new AnalyticsEvent(AnalyticsEvent.Launched).addTag("HistoryScreen").track();
+    new AnalyticsEvent("HistoryScreen").trackLaunch();
   }, []);
 
   return (

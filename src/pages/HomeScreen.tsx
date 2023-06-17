@@ -46,8 +46,7 @@ const HomeScreen: React.FC = () => {
   useEffect(() => {
     if (!LocalStorage.getBoolean(StorageItem.isOnboardingComplete))
       replace("/onboarding");
-    else
-      new AnalyticsEvent(AnalyticsEvent.Launched).addTag("HomeScreen").track();
+    else new AnalyticsEvent("HomeScreen").trackLaunch();
   }, []);
 
   return (
@@ -77,7 +76,14 @@ const HomeScreen: React.FC = () => {
 
       <Section
         title="History"
-        action={{ text: "See All", fn: () => push(screen.history.path) }}
+        action={{
+          text: "See All",
+          fn: () => {
+            new AnalyticsEvent("SeeAllHistory").trackClick();
+
+            push(screen.history.path);
+          },
+        }}
       >
         {!historyItems.length ? (
           <Section.EmptyText className="mt-14">

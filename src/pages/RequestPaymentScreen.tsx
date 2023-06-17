@@ -49,9 +49,7 @@ const RequestPaymentScreen: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    new AnalyticsEvent(AnalyticsEvent.Launched)
-      .addTag("RequestPaymentScreen")
-      .track();
+    new AnalyticsEvent("RequestPaymentScreen").trackLaunch();
   }, []);
 
   if (!upiData) {

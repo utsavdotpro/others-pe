@@ -14,7 +14,7 @@ const mockUPIList = [
 // NOTE: Unused screen
 const PeopleScreen: React.FC = () => {
   useEffect(() => {
-    new AnalyticsEvent(AnalyticsEvent.Launched).addTag("PeopleScreen").track();
+    new AnalyticsEvent("PeopleScreen").trackLaunch();
   }, []);
 
   return (

@@ -31,7 +31,7 @@ const AddUPIScreen: React.FC = () => {
   const disabledWhileFirstChange = useRef(true);
 
   useEffect(() => {
-    new AnalyticsEvent(AnalyticsEvent.Launched).addTag("AddUPIScreen").track();
+    new AnalyticsEvent("AddUPIScreen").trackLaunch();
   }, []);
 
   const processUpiIdChange = ({

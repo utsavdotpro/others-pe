@@ -17,9 +17,7 @@ const OnboardingScreen: React.FC = () => {
   };
 
   useEffect(() => {
-    new AnalyticsEvent(AnalyticsEvent.Launched)
-      .addTag("OnboardingScreen")
-      .track();
+    new AnalyticsEvent("OnboardingScreen").trackLaunch();
   }, []);
 
   return (
