@@ -5,6 +5,7 @@ import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import cx from "clsx";
 import useRouter from "@hooks/use-router";
 import { Platform } from "@lib/platform";
+import { AnalyticsEvent } from "@lib/amplitude";
 
 type Props = {
   title?: string;
@@ -36,7 +37,10 @@ const Toolbar: Component<Props> = ({
       {canGoBack() && (
         <ArrowLeftIcon
           className="w-4 h-4 mr-4 font-bold cursor-pointer"
-          onClick={() => goBack()}
+          onClick={() => {
+            new AnalyticsEvent("ToolbarBackButton").trackClick();
+            goBack();
+          }}
         />
       )}
 

@@ -1,4 +1,12 @@
 import { BarcodeScanner } from "@capacitor-community/barcode-scanner";
+import { AnalyticsEvent } from "@lib/amplitude";
+
+const trackScanProcess = (status: string, processed: boolean) => {
+  new AnalyticsEvent("BarcodeScanner")
+    .add("status", status)
+    .add("processed", processed)
+    .trackProcess();
+};
 
 // Docs: https://github.com/capacitor-community/barcode-scanner#permissions
 const validateOrRequestCameraPermission = async () => {
@@ -7,9 +15,14 @@ const validateOrRequestCameraPermission = async () => {
   if (status.granted) return true;
 
   if (status.denied || status.restricted || status.unknown) {
-    alert("Please enable camera access in your Settings app");
+    trackScanProcess("no_permission", false);
+
+    alert("Please enable camera access in your Settings app!");
     return false;
   }
+
+  trackScanProcess("unknown_permission", false);
+  alert("Unable to detect camera access status, please check Settings!");
 
   return false;
 };
@@ -26,19 +39,26 @@ const showBackgroundForCamera = () => {
 
 export const startQRScan = async (): Promise<string> => {
   if (await validateOrRequestCameraPermission()) {
+    trackScanProcess("started", false);
+
     hideBackgroundForCamera();
 
     const result = await BarcodeScanner.startScan();
 
     showBackgroundForCamera();
 
-    if (result.hasContent) return result.content;
+    if (result.hasContent) {
+      trackScanProcess("success", true);
+      return result.content;
+    } else trackScanProcess("no_content", false);
   }
 
   return Promise.resolve("");
 };
 
 export const stopQRScan = async () => {
+  trackScanProcess("stopped", false);
+
   showBackgroundForCamera();
   await BarcodeScanner.stopScan();
 };

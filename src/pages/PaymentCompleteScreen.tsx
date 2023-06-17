@@ -5,8 +5,10 @@ import Image from "@elements/Image";
 import Text from "@elements/Text";
 import Container from "@layouts/Container";
 import Screen from "@layouts/Screen";
+import { AnalyticsEvent } from "@lib/amplitude";
 import { formatAmount } from "@utils/.";
 import cx from "clsx";
+import { useEffect } from "react";
 
 const mockProps = {
   payerUPIId: "klprashant@icici",
@@ -24,6 +26,10 @@ const UserImage: Component<{ upiId: string }> = ({ className, upiId }) => (
 
 // NOTE: Unused screen
 const PaymentCompleteScreen: React.FC = () => {
+  useEffect(() => {
+    new AnalyticsEvent("PaymentCompleteScreen").trackLaunch();
+  }, []);
+  
   return (
     <Screen title="Payment Complete">
       <Toolbar title="Payment Details" />

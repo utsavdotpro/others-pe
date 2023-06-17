@@ -35,3 +35,7 @@ export const generateShareText = (upi: UPI) =>
 ${generateUPILink(upi)}\n
 Click the link and pay using any UPI app.\n
 - OthersPe`;
+
+export const isDevEnvironment = (): boolean => {
+  return process.env.NODE_ENV === "development";
+};

@@ -10,11 +10,12 @@ import Screen from "@layouts/Screen";
 import LocalStorage, { StorageItem } from "@lib/local-storage";
 import MoneyInput from "@modules/request-payment/MoneyInput";
 import RequestSheet from "@modules/request-payment/RequestSheet";
-import { generateShareText } from "@utils/.";
-import { useMemo, useRef } from "react";
+import { debounce, generateShareText } from "@utils/.";
+import { useEffect, useMemo, useRef } from "react";
 import Image from "@elements/Image";
 import cx from "clsx";
 import { PaymentHistory } from "@appTypes/payment-history";
+import { AnalyticsEvent } from "@lib/amplitude";
 
 const UserImage: Component<{ upiId: string }> = ({ className, upiId }) => (
   <Image
@@ -23,6 +24,28 @@ const UserImage: Component<{ upiId: string }> = ({ className, upiId }) => (
     className={cx("w-20 h-20 rounded-full", className)}
   />
 );
+
+const trackAmountChange = debounce((value: string) => {
+  new AnalyticsEvent("AmountInput").add("value", value).trackChange();
+}, 300);
+
+const trackNoteChange = debounce((value: string) => {
+  new AnalyticsEvent("NoteInput").add("value", value).trackChange();
+}, 300);
+
+const trackShareProcess = (
+  status: string,
+  processed: boolean,
+  result?: string
+) => {
+  const event = new AnalyticsEvent("SharePaymentLink")
+    .add("status", status)
+    .add("processed", processed);
+
+  if (result) event.add("result", result);
+
+  event.trackProcess();
+};
 
 const RequestPaymentScreen: React.FC = () => {
   const { replace } = useRouter();
@@ -47,6 +70,10 @@ const RequestPaymentScreen: React.FC = () => {
     return obj;
   }, []);
 
+  useEffect(() => {
+    new AnalyticsEvent("RequestPaymentScreen").trackLaunch();
+  }, []);
+
   if (!upiData) {
     replace("/");
     return null;
@@ -63,9 +90,35 @@ const RequestPaymentScreen: React.FC = () => {
     });
   };
 
-  const onRequestPayment = async () => {
+  const processShare = async (upi: UPI) => {
+    if ((await Share.canShare()).value === false) {
+      trackShareProcess("share_unsupported", false);
+
+      alert("Sorry, share is not supported on this device!");
+      return;
+    }
+
+    trackShareProcess("started", false);
+
+    const result = await Share.share({
+      title: "Share payment link",
+      text: generateShareText(upi),
+      dialogTitle: "Share payment link",
+    });
+
+    if (result.activityType)
+      trackShareProcess("success", true, result.activityType);
+    else trackShareProcess("canceled", false);
+  };
+
+  const onRequestPayment = () => {
     if (!valueRef.current.amount || valueRef.current.amount === "0") {
-      alert("Please enter an amount");
+      new AnalyticsEvent("RequestPaymentButton")
+        .add("processed", false)
+        .add("status", "incomplete_input")
+        .trackClick();
+
+      alert("Please enter an amount!");
       return;
     }
 
@@ -75,13 +128,13 @@ const RequestPaymentScreen: React.FC = () => {
       tn: valueRef.current.note,
     };
 
-    savePaymentHistory(upi);
+    new AnalyticsEvent("RequestPaymentButton")
+      .add("processed", true)
+      .add("amount", upi.am)
+      .trackClick();
 
-    await Share.share({
-      title: "Share payment link",
-      text: generateShareText(upi),
-      dialogTitle: "Share payment link",
-    });
+    savePaymentHistory(upi);
+    processShare(upi);
   };
 
   return (
@@ -112,12 +165,18 @@ const RequestPaymentScreen: React.FC = () => {
         <MoneyInput
           className="mt-4"
           defaultValue={valueRef.current.amount}
-          onValueChange={(value) => (valueRef.current.amount = value)}
+          onValueChange={(value) => {
+            trackAmountChange(value);
+            valueRef.current.amount = value;
+          }}
         />
 
         <Input
           defaultValue={valueRef.current.note}
-          onValueChange={(value) => (valueRef.current.note = value)}
+          onValueChange={(value) => {
+            trackNoteChange(value);
+            valueRef.current.note = value;
+          }}
           className="bg-white border-none !rounded-2xl text-xs inline-block mx-auto"
           inputClassName="min-w-[10ch] text-center"
           placeholder="Add a note"

@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import LocalStorage, { StorageItem } from "@lib/local-storage";
 import screen from "@constants/screens";
 import { PaymentHistory } from "@appTypes/payment-history";
+import { AnalyticsEvent } from "@lib/amplitude";
 
 // const mockUPIList = [
 //   { upiId: "sannan@ybl" },
@@ -45,6 +46,7 @@ const HomeScreen: React.FC = () => {
   useEffect(() => {
     if (!LocalStorage.getBoolean(StorageItem.isOnboardingComplete))
       replace("/onboarding");
+    else new AnalyticsEvent("HomeScreen").trackLaunch();
   }, []);
 
   return (
@@ -74,7 +76,14 @@ const HomeScreen: React.FC = () => {
 
       <Section
         title="History"
-        action={{ text: "See All", fn: () => push(screen.history.path) }}
+        action={{
+          text: "See All",
+          fn: () => {
+            new AnalyticsEvent("SeeAllHistoryText").trackClick();
+
+            push(screen.history.path);
+          },
+        }}
       >
         {!historyItems.length ? (
           <Section.EmptyText className="mt-14">
@@ -96,7 +105,10 @@ const HomeScreen: React.FC = () => {
           Icon={QrCodeIcon}
           className="w-full"
           iconClassName="text-primary-500"
-          onClick={() => push(screen.scanner.path)}
+          onClick={() => {
+            new AnalyticsEvent("ScanAndRequestButton").trackClick();
+            push(screen.scanner.path);
+          }}
         >
           Scan and Request
         </Button>
