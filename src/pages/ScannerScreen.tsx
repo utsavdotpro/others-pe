@@ -25,7 +25,7 @@ const ScannerScreen: React.FC = () => {
   };
 
   useEffect(() => {
-    new AnalyticsEvent("HistoryScreen").trackLaunch();
+    new AnalyticsEvent("ScannerScreen").trackLaunch();
 
     if (!Platform.isDesktop) startScan();
 

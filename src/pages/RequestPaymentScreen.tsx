@@ -97,10 +97,6 @@ const RequestPaymentScreen: React.FC = () => {
       return;
     }
 
-    new AnalyticsEvent("RequestPaymentButton")
-      .add("processed", true)
-      .trackClick();
-
     const upi: UPI = {
       ...upiData,
       am: Number(valueRef.current.amount),

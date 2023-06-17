@@ -57,7 +57,7 @@ export const startQRScan = async (): Promise<string> => {
 };
 
 export const stopQRScan = async () => {
-  trackScanProcess("user_stopped", false);
+  trackScanProcess("stopped", false);
 
   showBackgroundForCamera();
   await BarcodeScanner.stopScan();
