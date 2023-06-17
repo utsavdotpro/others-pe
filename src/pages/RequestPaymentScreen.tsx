@@ -16,6 +16,7 @@ import Image from "@elements/Image";
 import cx from "clsx";
 import { PaymentHistory } from "@appTypes/payment-history";
 import { AnalyticsEvent } from "@lib/amplitude";
+import { convertToUPI } from "@utils/upi";
 
 const UserImage: Component<{ upiId: string }> = ({ className, upiId }) => (
   <Image
@@ -60,14 +61,14 @@ const RequestPaymentScreen: React.FC = () => {
 
     if (!data) return null;
 
-    const obj = Object.fromEntries(
-      new URLSearchParams(data.replace("upi://pay?", ""))
-    ) as unknown as UPI;
+    const upi = convertToUPI(data);
 
-    if (obj.tn) valueRef.current.note = obj.tn;
-    if (obj.am) valueRef.current.amount = obj.am.toString();
+    if (!upi) return null;
 
-    return obj;
+    if (upi.tn) valueRef.current.note = upi.tn;
+    if (upi.am) valueRef.current.amount = upi.am.toString();
+
+    return upi;
   }, []);
 
   useEffect(() => {
@@ -84,7 +85,7 @@ const RequestPaymentScreen: React.FC = () => {
   const savePaymentHistory = (upi: UPI) => {
     LocalStorage.pushItem<PaymentHistory>(StorageItem.paymentHistory, {
       vpa: upi.pa,
-      amount: upi.am,
+      amount: upi.am!,
       note: upi.tn,
       timestamp: new Date().toISOString(),
     });

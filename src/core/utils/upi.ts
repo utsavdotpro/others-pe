@@ -13,3 +13,13 @@ export const generateUPILink = (upi: UPI) => {
     upi.am
   }&tn=${encodeURI(upi.tn || "")}`;
 };
+
+export const convertToUPI = (rawQRData: string): UPI | undefined => {
+  const obj = Object.fromEntries(
+    new URLSearchParams(rawQRData.replace("upi://pay?", ""))
+  ) as unknown as UPI;
+
+  if (obj.pa) return obj;
+
+  return undefined;
+};
