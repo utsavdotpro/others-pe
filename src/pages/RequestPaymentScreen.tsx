@@ -80,6 +80,7 @@ const RequestPaymentScreen: React.FC = () => {
     if (!valueRef.current.amount || valueRef.current.amount === "0") {
       new AnalyticsEvent("RequestPaymentButton")
         .add("processed", false)
+        .add("status", "incomplete_input")
         .trackClick();
 
       alert("Please enter an amount!");
@@ -89,7 +90,7 @@ const RequestPaymentScreen: React.FC = () => {
     if ((await Share.canShare()).value === false) {
       new AnalyticsEvent("RequestPaymentButton")
         .add("processed", false)
-        .add("error", "share_not_supported")
+        .add("status", "unsupported_share")
         .trackClick();
 
       alert("Sorry, share is not supported on this device!");

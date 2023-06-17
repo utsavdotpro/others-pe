@@ -7,6 +7,7 @@ enum Event {
   Launched = "Launched",
   Clicked = "Clicked",
   Changed = "Changed",
+  Process = "Process",
 }
 
 export class AnalyticsEvent {
@@ -34,6 +35,10 @@ export class AnalyticsEvent {
 
   trackChange() {
     this.track(Event.Changed);
+  }
+
+  trackProcess() {
+    this.track(Event.Process);
   }
 
   private track(key: string) {
