@@ -37,9 +37,10 @@ export class AnalyticsEvent {
   }
 
   private track(key: string) {
-    // TODO: enable this later, currently it's not working for iOS production builds
     if (isDevEnvironment()) {
       console.log(key, this);
+
+      // TODO: enable this later, currently it's not working for iOS production builds
       // return;
     }
 

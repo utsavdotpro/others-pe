@@ -57,7 +57,10 @@ const ScannerScreen: React.FC = () => {
             {
               label: "Flash",
               Icon: BoltIcon,
-              onClick: () => toggleFlash(),
+              onClick: () => {
+                new AnalyticsEvent("ToggleFlashButton").trackClick();
+                toggleFlash();
+              },
             },
           ]}
         />

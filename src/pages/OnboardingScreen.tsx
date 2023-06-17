@@ -12,6 +12,8 @@ const OnboardingScreen: React.FC = () => {
   const { replace } = useRouter();
 
   const proceed = () => {
+    new AnalyticsEvent("GetStartedButton").trackClick();
+
     LocalStorage.setItem(StorageItem.isOnboardingComplete, "true");
     replace(screen.home.path);
   };

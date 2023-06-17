@@ -79,7 +79,7 @@ const HomeScreen: React.FC = () => {
         action={{
           text: "See All",
           fn: () => {
-            new AnalyticsEvent("SeeAllHistory").trackClick();
+            new AnalyticsEvent("SeeAllHistoryText").trackClick();
 
             push(screen.history.path);
           },
@@ -105,7 +105,10 @@ const HomeScreen: React.FC = () => {
           Icon={QrCodeIcon}
           className="w-full"
           iconClassName="text-primary-500"
-          onClick={() => push(screen.scanner.path)}
+          onClick={() => {
+            new AnalyticsEvent("ScanAndRequestButton").trackClick();
+            push(screen.scanner.path);
+          }}
         >
           Scan and Request
         </Button>
