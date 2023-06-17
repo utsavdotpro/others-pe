@@ -33,6 +33,20 @@ const trackNoteChange = debounce((value: string) => {
   new AnalyticsEvent("NoteInput").add("value", value).trackChange();
 }, 300);
 
+const trackShareProcess = (
+  status: string,
+  processed: boolean,
+  result?: string
+) => {
+  const event = new AnalyticsEvent("SharePaymentLink")
+    .add("status", status)
+    .add("processed", processed);
+
+  if (result) event.add("result", result);
+
+  event.trackProcess();
+};
+
 const RequestPaymentScreen: React.FC = () => {
   const { replace } = useRouter();
 
@@ -76,7 +90,28 @@ const RequestPaymentScreen: React.FC = () => {
     });
   };
 
-  const onRequestPayment = async () => {
+  const processShare = async (upi: UPI) => {
+    if ((await Share.canShare()).value === false) {
+      trackShareProcess("share_unsupported", false);
+
+      alert("Sorry, share is not supported on this device!");
+      return;
+    }
+
+    trackShareProcess("started", false);
+
+    const result = await Share.share({
+      title: "Share payment link",
+      text: generateShareText(upi),
+      dialogTitle: "Share payment link",
+    });
+
+    if (result.activityType)
+      trackShareProcess("success", true, result.activityType);
+    else trackShareProcess("canceled", false);
+  };
+
+  const onRequestPayment = () => {
     if (!valueRef.current.amount || valueRef.current.amount === "0") {
       new AnalyticsEvent("RequestPaymentButton")
         .add("processed", false)
@@ -84,16 +119,6 @@ const RequestPaymentScreen: React.FC = () => {
         .trackClick();
 
       alert("Please enter an amount!");
-      return;
-    }
-
-    if ((await Share.canShare()).value === false) {
-      new AnalyticsEvent("RequestPaymentButton")
-        .add("processed", false)
-        .add("status", "unsupported_share")
-        .trackClick();
-
-      alert("Sorry, share is not supported on this device!");
       return;
     }
 
@@ -109,12 +134,7 @@ const RequestPaymentScreen: React.FC = () => {
       .trackClick();
 
     savePaymentHistory(upi);
-
-    await Share.share({
-      title: "Share payment link",
-      text: generateShareText(upi),
-      dialogTitle: "Share payment link",
-    });
+    processShare(upi);
   };
 
   return (
