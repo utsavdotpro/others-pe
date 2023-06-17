@@ -19,6 +19,7 @@ import { AnalyticsEvent } from "@lib/amplitude";
 import { convertToUPI } from "@utils/upi";
 import Section from "@layouts/Section";
 import Button from "@elements/Button";
+import { trackScanProcess } from "@lib/barcode-scanner";
 
 const UserImage: Component<{ upiId: string }> = ({ className, upiId }) => (
   <Image
@@ -65,7 +66,10 @@ const RequestPaymentScreen: React.FC = () => {
 
     const upi = convertToUPI(data);
 
-    if (!upi) return null;
+    if (!upi) {
+      trackScanProcess("invalid_upi_qr", false);
+      return null;
+    }
 
     if (upi.tn) valueRef.current.note = upi.tn;
     if (upi.am) valueRef.current.amount = upi.am.toString();
@@ -153,7 +157,13 @@ const RequestPaymentScreen: React.FC = () => {
             are sure that you have scanned a valid QR code, please try again.
           </Section.EmptyText>
 
-          <Button.Primary onClick={() => goBack()} className="mx-auto mt-4">
+          <Button.Primary
+            onClick={() => {
+              new AnalyticsEvent("GoBackButton").trackClick();
+              goBack();
+            }}
+            className="mx-auto mt-4"
+          >
             Go back
           </Button.Primary>
         </Container>

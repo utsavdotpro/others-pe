@@ -1,7 +1,7 @@
 import { BarcodeScanner } from "@capacitor-community/barcode-scanner";
 import { AnalyticsEvent } from "@lib/amplitude";
 
-const trackScanProcess = (status: string, processed: boolean) => {
+export const trackScanProcess = (status: string, processed: boolean) => {
   new AnalyticsEvent("BarcodeScanner")
     .add("status", status)
     .add("processed", processed)
