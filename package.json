@@ -30,6 +30,7 @@
     "iOS >=14"
   ],
   "dependencies": {
+    "@amplitude/analytics-browser": "^2.0.0",
     "@capacitor-community/barcode-scanner": "^4.0.1",
     "@capacitor/android": "5.0.3",
     "@capacitor/app": "5.0.2",
