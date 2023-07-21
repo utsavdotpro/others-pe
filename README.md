@@ -1,5 +1,19 @@
+![](https://img.shields.io/badge/Incomplete-FFB481?style=for-the-badge)&nbsp;
+![](https://img.shields.io/badge/Inactive-DBC51B?style=for-the-badge)
+
 # OthersPe
-WIP
+
+A cross-platform app built with an idea to share UPI requests with others as a payment link. How to use?
+
+- Use the app to scan any UPI QR code
+- Enter the amount and note (optional)
+- Hit the share button to share on any social media
+
+### Design
+
+See on [Figma](https://www.figma.com/file/r6tQdHNKlRcLAZfNfZNmOH/OthersPe?type=design&node-id=70%3A1092&mode=design&t=x8NJVBwJENHJfUyF-1)
+
+![](./sample/design.jpg)
 
 ### Technologies
 
